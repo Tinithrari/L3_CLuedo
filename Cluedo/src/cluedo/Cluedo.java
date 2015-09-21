@@ -28,7 +28,9 @@ public class Cluedo {
     
     public static void main(String[] args) {
         // TODO code application logic here
+        Cluedo game = new Cluedo();
         
+        game.run();
     }
     
 }
