@@ -1,21 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cluedo;
 
+import Game.Jeu;
+
 /**
- *
+ * Représente l'interface de lancement du cluedo
  * @author Tinithrari
  */
 public class Cluedo {
 
+    private Jeu jeu;
+    
     /**
-     * @param args the command line arguments
+     * Permet de construire une instance du jeu
      */
+    public Cluedo()
+    {
+        jeu = new Jeu();
+    }
+    
+    /**
+     * Permet d'exécuter le jeu
+     */
+    public void run()
+    {
+        
+    }
+    
     public static void main(String[] args) {
         // TODO code application logic here
+        
     }
     
 }
