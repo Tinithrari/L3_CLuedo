@@ -32,6 +32,11 @@ public abstract class Joueur {
     /**
      */
      
+     // Accesseur pour le nom du joueur
+     public String getNom(){
+         return this.nom;
+     }
+     
     // Affiche chaque carte de la main du joueur
     public void voirCartes() {
         for(Carte c : main) System.out.println(c.getNom);
