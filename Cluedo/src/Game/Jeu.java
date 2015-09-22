@@ -22,7 +22,10 @@ public class Jeu {
     /**
      * Créer et initialise le jeu ainsi que ses composantes
      */
-    public Jeu() {
+    public Jeu(LinkedList<Joueur> joueurs) {
+        
+        this.joueurs = joueurs;
+        
         paquet = new LinkedList<Carte>();
         armes = new LinkedList<String>();
         lieux = new LinkedList<String>();
@@ -90,8 +93,7 @@ public class Jeu {
      * @return true si l'accusation est correcte, false sinon
      */
     public boolean accuser(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
-        // TODO implement here
-        return false;
+        return crime.getArme().equals(arme) && crime.getLieu().equals(lieu) && crime.getMeurtrier().equals(meurtrier);
     }
 
     /**

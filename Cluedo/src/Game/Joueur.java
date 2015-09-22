@@ -30,7 +30,6 @@ public abstract class Joueur {
     private Set<Carte> main;
 
     /**
-     * @return
      */
     public void voirCartes() {
         // TODO implement here
@@ -48,7 +47,6 @@ public abstract class Joueur {
      * @param lieu 
      * @param arme 
      * @param meurtrier 
-     * @return
      */
     public void suggerer(Lieu lieu, Arme arme, Suspect meurtrier) {
         // TODO implement here
@@ -58,7 +56,6 @@ public abstract class Joueur {
      * @param lieu 
      * @param arme 
      * @param meurtrier 
-     * @return
      */
     public void accuser(Lieu lieu, Arme arme, Suspect meurtrier) {
         // TODO implement here
