@@ -3,6 +3,7 @@ package Game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -40,7 +41,7 @@ public class Jeu {
      * Mélange le paquet de carte
      */
     private void melanger() {
-        // TODO implement here
+        Collections.shuffle(paquet);
     }
 
     /**
@@ -55,6 +56,18 @@ public class Jeu {
      */
     private void creerCrime() {
         
+        // On choisit au hasard une arme, un lieu et un suspect
+        Arme arme = new Arme( armes.get((int) (Math.random() * armes.size())  ) );
+        Lieu lieu = new Lieu( lieux.get((int) (Math.random() * lieux.size()) ) );
+        Suspect suspect = new Suspect(suspects.get((int) (Math.random() * suspects.size()) ) );
+        
+        // On créé le crime
+        crime = new Crime(arme, suspect, lieu);
+        
+        // On retire les cartes du paquet
+        paquet.remove(arme);
+        paquet.remove(lieu);
+        paquet.remove(suspect);
     }
 
     /**
