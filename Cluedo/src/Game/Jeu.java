@@ -1,78 +1,143 @@
 package Game;
 
-
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
 
 /**
- * 
+ * Classe représentant les composantes principales du jeu cluedo
  */
 public class Jeu {
 
+    private LinkedList<Carte> paquet;
+    private LinkedList<Joueur> joueurs;
+    private Crime crime;
+    
+    private LinkedList<String> armes;
+    private LinkedList<String> lieux;
+    private LinkedList<String> suspects;
+    
     /**
-     * 
+     * Créer et initialise le jeu ainsi que ses composantes
      */
     public Jeu() {
+        paquet = new LinkedList<Carte>();
+        armes = new LinkedList<String>();
+        lieux = new LinkedList<String>();
+        suspects = new LinkedList<String>();
+        
+        loadArme();
+        loadLieu();
+        loadSuspect();
+        
+        creerCrime();
+        melanger();
+        distribuer();
     }
 
     /**
-     * 
+     * Mélange le paquet de carte
      */
-    private Carte[] paquet;
-
-    /**
-     * 
-     */
-    private Set<Joueur> joueurs;
-
-    /**
-     * 
-     */
-    private Crime crime;
-
-
-
-    /**
-     * @return
-     */
-    public void melanger() {
+    private void melanger() {
         // TODO implement here
     }
 
     /**
-     * @return
+     * Distribue les cartes aux différents joueurs
      */
-    public void distribuer() {
+    private void distribuer() {
         // TODO implement here
+    }
+    
+    /**
+     * Permet de créer le crime
+     */
+    private void creerCrime() {
+        
     }
 
     /**
-     * @return
-     */
-    public void genererPaquet() {
-        // TODO implement here
-    }
-
-    /**
-     * @param joueur 
-     * @param lieu 
-     * @param arme 
-     * @param meurtrier 
-     * @return
+     * Permet d'effectuer une suggestion
+     * @param joueur Le joueur ayant effectuer une suggestion
+     * @param lieu le lieu suggérer
+     * @param arme l'arme suggérer
+     * @param meurtrier le suspect
      */
     public void suggerer(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
         // TODO implement here
     }
 
     /**
-     * @param joueur 
-     * @param lieu 
-     * @param arme 
-     * @param meurtrier 
-     * @return
+     * Permet d'émettre une accusation
+     * @param joueur Le joueur effectuant l'accusation
+     * @param lieu Le lieu présumé du crime
+     * @param arme L'arme présumé du crime
+     * @param meurtrier Le meutrier présumé
+     * @return true si l'accusation est correcte, false sinon
      */
     public boolean accuser(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
         // TODO implement here
         return false;
     }
 
+    /**
+     * Charge les cartes armes à partir du fichier arme.tt dans le package data
+     */
+    private void loadArme()
+    {
+        try {
+            BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/arme.txt")));
+            String line;
+            
+            while ((line = bR.readLine()) != null)
+            {
+                paquet.add(new Arme(line));
+                armes.add(line);
+            }
+        } catch (IOException ex) {
+            System.err.println("Le fichier n'existe pas...");
+            System.exit(1);
+        }
+    }
+    
+    /**
+     * Charge les cartes lieu à partir du fichier lieu.txt dans le package data
+     */
+    private void loadLieu()
+    {
+        try {
+            BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/liey.txt")));
+            String line;
+            
+            while ((line = bR.readLine()) != null)
+            {
+                paquet.add(new Lieu(line));
+                lieux.add(line);
+            }
+        } catch (IOException ex) {
+            System.err.println("Le fichier n'existe pas...");
+            System.exit(1);
+        }
+    }
+    
+    /**
+     * Charge les cartes suspects à partir du fichier suspect.txt dans le package data
+     */
+    private void loadSuspect()
+    {
+        try {
+            BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/suspect.txt")));
+            String line;
+            
+            while ((line = bR.readLine()) != null)
+            {
+                paquet.add(new Suspect(line));
+                suspects.add(line);
+            }
+        } catch (IOException ex) {
+            System.err.println("Le fichier n'existe pas...");
+            System.exit(1);
+        }
+    }
 }
