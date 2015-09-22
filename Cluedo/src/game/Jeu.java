@@ -47,6 +47,10 @@ public class Jeu {
     private void melanger() {
         Collections.shuffle(paquet);
     }
+    
+    private void ordreJoueurs(){
+    	Collections.shuffle(joueurs);
+    }
 
     /**
      * Distribue les cartes aux différents joueurs
@@ -88,8 +92,16 @@ public class Jeu {
      * @param arme l'arme suggérer
      * @param meurtrier le suspect
      */
+     
+    // Affiche les cartes montrés par un joueur 
     public void suggerer(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
-        // TODO implement here
+    	for(Joueur j : joueurs){
+    		if(!(j.getNom.equals(joueur.getNom()))){
+    			carteMontré(montreCarte(lieu));
+    			carteMontré(montreCarte(arme));
+    			carteMontré(montreCarte(meurtrier));
+    		}
+    	}
     }
 
     /**
