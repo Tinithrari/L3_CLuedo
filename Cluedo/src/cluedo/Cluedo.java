@@ -1,6 +1,6 @@
 package cluedo;
 
-import Game.Jeu;
+import game.Jeu;
 
 /**
  * Représente l'interface de lancement du cluedo
