@@ -42,6 +42,9 @@ public abstract class Joueur {
         for(Carte c : main) System.out.println(c.getNom);
     }
     
+    public void carteMontré(Carte c){
+        System.out.println("Le joueur vous a montré la carte "+c.getNom()+" !");
+    }
     // Ajoute une carte dans la main du joueur (lors de la distribution)
     public void addCard(Carte c) {
         main.add(c);
