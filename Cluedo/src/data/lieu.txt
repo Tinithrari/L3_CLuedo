@@ -1,9 +1,9 @@
-la cuisine
-la salle de bal
-le conservatoire
-la salle à manger
-la salle de billard
-la librairie
-le salon
-le hall
-la salle d'étude
+Kitchen
+Ballroom
+Conservatory
+Dining room
+Billard room
+Library
+Lounge
+Hall
+Study
