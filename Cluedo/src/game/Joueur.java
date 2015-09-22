@@ -22,7 +22,7 @@ public abstract class Joueur {
     /**
      * 
      */
-    private boolean muet;
+    private boolean muet=1;
 
     /**
      * 
@@ -32,7 +32,7 @@ public abstract class Joueur {
     /**
      */
     public void voirCartes() {
-        // TODO implement here
+        for(Carte c : main) System.out.println(c.getNom);
     }
 
     /**
