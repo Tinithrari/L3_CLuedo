@@ -44,8 +44,12 @@ public abstract class Joueur {
     /**
      * @return
      */
-    public Carte montrerCarte() {
-        // TODO implement here
+     
+    // Retourne la carte si elle est présente dans la main, sinon null
+    public Carte montrerCarte(Carte c) {
+        for(Carte c : main){
+            if(main.contains(c)) return c;
+        }
         return null;
     }
 
