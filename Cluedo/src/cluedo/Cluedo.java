@@ -15,7 +15,7 @@ public class Cluedo {
      */
     public Cluedo()
     {
-        jeu = new Jeu();
+       // jeu = new Jeu();
     }
     
     /**
