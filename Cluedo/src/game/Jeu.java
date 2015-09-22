@@ -52,7 +52,14 @@ public class Jeu {
      * Distribue les cartes aux différents joueurs
      */
     private void distribuer() {
-        // TODO implement here
+        int p=18/nbJ; // Nombre de cartes que les joueurs auront au minimum chacun
+		int k=0;
+		for(int i=0;i<p;i++)
+			for(int l=0;l<nbJ;l++)
+				joueurs.get(l).addCard(paquet.get(k++));
+		if(18%nbJ!=0) // Cas où les joueurs n'auront pas le même nombre de cartes (4 ou 5 joueurs)
+			for(int a=0;a<18%nbJ;a++)
+				joueurs.get(a).addCard(paquet.get(k++));
     }
     
     /**
