@@ -31,10 +31,16 @@ public abstract class Joueur {
 
     /**
      */
+     
+    // Affiche chaque carte de la main du joueur
     public void voirCartes() {
         for(Carte c : main) System.out.println(c.getNom);
     }
-
+    
+    // Ajoute une carte dans la main du joueur (lors de la distribution)
+    public void addCard(Carte c) {
+        main.add(c);
+    }
     /**
      * @return
      */
