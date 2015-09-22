@@ -21,6 +21,7 @@ public class Jeu {
     
     /**
      * Créer et initialise le jeu ainsi que ses composantes
+     * @param  joueurs La liste des joueurs participant au jeux
      */
     public Jeu(LinkedList<Joueur> joueurs) {
         
