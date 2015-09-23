@@ -39,6 +39,7 @@ public class Jeu {
         creerCrime();
         melanger();
         distribuer();
+        ordreJoueurs();
     }
 
     /**
