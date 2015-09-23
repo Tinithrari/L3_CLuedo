@@ -66,24 +66,6 @@ public abstract class Joueur {
     }
 
     /**
-     * @param lieu 
-     * @param arme 
-     * @param meurtrier 
-     */
-    public void suggerer(Lieu lieu, Arme arme, Suspect meurtrier) {
-        // TODO implement here
-    }
-
-    /**
-     * @param lieu 
-     * @param arme 
-     * @param meurtrier 
-     */
-    public void accuser(Lieu lieu, Arme arme, Suspect meurtrier) {
-        // TODO implement here
-    }
-
-    /**
      * @return
      */
     public abstract String commande();
