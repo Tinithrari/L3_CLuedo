@@ -56,6 +56,7 @@ public class Jeu {
      * Distribue les cartes aux différents joueurs
      */
     private void distribuer() {
+    	int nbJ = joueurs.size();
         int p=18/nbJ; // Nombre de cartes que les joueurs auront au minimum chacun
 		int k=0;
 		for(int i=0;i<p;i++)
