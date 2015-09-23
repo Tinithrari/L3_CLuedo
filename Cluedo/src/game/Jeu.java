@@ -97,13 +97,7 @@ public class Jeu {
      
     // Affiche les cartes montrés par un joueur 
     public void suggerer(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
-    	for(Joueur j : joueurs){
-    		if(!(j.getNom.equals(joueur.getNom()))){
-    			carteMontré(montreCarte(lieu));
-    			carteMontré(montreCarte(arme));
-    			carteMontré(montreCarte(meurtrier));
-    		}
-    	}
+    	
     }
 
     /**
