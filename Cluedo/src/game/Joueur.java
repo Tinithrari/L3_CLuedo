@@ -16,7 +16,7 @@ public abstract class Joueur {
 
     private String nom;
     private boolean muet=false;
-    private Set<Carte> main;
+    private LinkedList<Carte> main;
      
      /**
       * 
@@ -58,11 +58,38 @@ public abstract class Joueur {
     }
     
     /**
+     * Retourne la carte à montrer choisie par le joueur
+     * @param lieu lieu suggéré
+     * @param arme arme suggéré
+     * @param suspect suspect suggéré
      * @return
      */
      
-    public Carte montrerCarte(String nom) {
-        return null;
+    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
+        LinkedList<Carte> card = null;
+        if(main.contains(lieu))
+            card.add(lieu);
+        if(main.contains(arme))
+            card.add(arme);
+        if(main.contains(suspect))
+            card.add(suspect);
+        if(card.size()==0)
+            return null;
+        if(card.size()==1)
+            return card.get(0);
+        Scanner sc=new Scanner(System.in);
+        int choix,cpt=0;
+        do{
+            System.out.println("Please, chose the card you want to show to the other player:\n");
+            for(Carte c:card)
+                System.out.println((cpt+1)+". "+c.toString());
+            choix=sc.nextInt();
+        }while(choix > card.size() || choix < 0);
+        return card.get(choix-1);
+    }
+    
+    public void perdu() {
+        this.muet = true;
     }
 
     /**
