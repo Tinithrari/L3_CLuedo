@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Classe représentant les composantes principales du jeu cluedo
@@ -108,10 +109,117 @@ public class Jeu {
      * @param meurtrier Le meutrier présumé
      * @return true si l'accusation est correcte, false sinon
      */
-    public boolean accuser(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
+    public boolean accuser(Joueur joueur, Suspect meurtrier, Lieu lieu, Arme arme) {
         return crime.getArme().equals(arme) && crime.getLieu().equals(lieu) && crime.getMeurtrier().equals(meurtrier);
     }
 
+    public void gestionDeCommande(Joueur j)
+    {
+        if(!j.aPerdu()){
+            
+            String command;
+            boolean finDuTour = false;
+            Scanner scan = new Scanner(System.in);
+
+            while(!finDuTour)
+            {
+                String[] splittedCommand; 
+                
+                System.out.println("Enter command: ");
+                command = scan.nextLine();
+                
+                splittedCommand = command.split(" ");
+                
+                if(splittedCommand[0].equals("move"))
+                {
+                    if(splittedCommand.length != 5)
+                    {
+                        if(suspects.contains(splittedCommand[2]) &&
+                                    lieux.contains(splittedCommand[3]) &&
+                                    armes.contains(splittedCommand[4]))
+                        {                      
+                            if(splittedCommand[1].equals("suggest"))
+                            {
+
+                            }
+                            else if(splittedCommand[1].equals("accuse"))
+                            {
+                                if(!accuser(j,new Suspect(splittedCommand[2]),new Lieu(splittedCommand[3]),new Arme(splittedCommand[4])))
+                                {
+                                    j.perdu();
+                                    System.out.println("Wrong accusation, "+j.getNom()+" has lost!");
+                                }
+                                else
+                                {
+                                    //TODO
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Wrong action, please use \"suggest\" or \"accuse\"");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("One or severals card name are incorrect, name of card available with help");
+                        }
+                    }
+                    
+                    else
+                    {
+                       System.out.println("Not enough arguments, usage: move <action> Suspect Place Weapon");
+                    }
+                }
+                
+                else if(splittedCommand[0].equals("show"))
+                {
+                    j.voirCartes();
+                }
+                else if(splittedCommand[0].equals("exit"))
+                {
+                    System.exit(0);
+                }
+                else if(splittedCommand[0].equals("help"))
+                {
+                    System.out.println("show");
+                    System.out.println("\t show your cards and status");
+                    
+                    System.out.println("move");
+                    System.out.println("\t <action> <Suspect> <Place> <Weapon>");
+                    System.out.println("\t available actions: suggest, accuse");
+                    
+                    System.out.println("exit");
+                    System.out.println("\t Leave the program");
+                    
+                    System.out.println("help");
+                    System.out.println("\t Show this message");
+                    
+                    System.out.println("Available cards: ");
+                    System.out.println("Suspects \t\t Places \t\t Weapons");
+                    
+                    for(int i=0;i<lieux.size();i++)
+                    {
+                        if(i < suspects.size())
+                            System.out.print(suspects.get(i));
+                        else 
+                            System.out.print("\t\t");
+                        System.out.print(" \t\t ");
+            
+                        System.out.print(lieux.get(i));
+                        System.out.print(" \t\t ");
+                        
+                        if(i < armes.size())
+                            System.out.print(armes.get(i));
+                        System.out.println("");
+                    }
+                }
+                else
+                {
+                    System.out.println("Wrong command, please use help to see valid command");
+                }
+            }  
+        }
+    }
     /**
      * Charge les cartes armes à partir du fichier arme.tt dans le package data
      */

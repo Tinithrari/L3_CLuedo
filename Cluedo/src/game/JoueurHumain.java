@@ -18,7 +18,6 @@ public class JoueurHumain extends Joueur {
      * @return
      */
     public String commande() {
-        // TODO implement here
         return "";
     }
 
