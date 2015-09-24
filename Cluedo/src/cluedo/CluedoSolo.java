@@ -30,7 +30,7 @@ public class CluedoSolo {
         
         jeu = new Jeu(joueurs);
         
-        while (! (jeu.estGagne() || j1.aPerdu() || j2.aPerdu() || j3.aPerdu() || j4.aPerdu() ))
+        while (! (jeu.estGagne() || (j1.aPerdu() && j2.aPerdu() && j3.aPerdu() && j4.aPerdu() ) ) )
         {
             jeu.effectuerTour(joueurs.get(iterator));
             
