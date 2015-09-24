@@ -11,7 +11,8 @@ public class JoueurOrdi extends Joueur {
     /**
      * 
      */
-    public JoueurOrdi() {
+    public JoueurOrdi(String nom) {
+        super(nom);
     }
 
     /**

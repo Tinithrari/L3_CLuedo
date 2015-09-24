@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 /**
  * Classe représentant les composantes principales du jeu cluedo
@@ -15,6 +14,7 @@ public class Jeu {
     private LinkedList<Carte> paquet;
     private LinkedList<Joueur> joueurs;
     private Crime crime;
+    private boolean gagne;
     
     private LinkedList<String> armes;
     private LinkedList<String> lieux;
@@ -27,6 +27,7 @@ public class Jeu {
     public Jeu(LinkedList<Joueur> joueurs) {
         
         this.joueurs = joueurs;
+        gagne = false;
         
         paquet = new LinkedList<Carte>();
         armes = new LinkedList<String>();
@@ -43,6 +44,26 @@ public class Jeu {
         ordreJoueurs();
     }
 
+    public Jeu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Permet de savoir si le jeu a été gagné
+     * @return true si oui, false sinon
+     */
+    public boolean estGagne() {
+        return gagne;
+    }
+
+    /**
+     * Permet d'obtenir la liste des joueurs
+     * @return la liste des joueurs
+     */
+    public LinkedList<Joueur> getJoueurs() {
+        return joueurs;
+    }
+    
     /**
      * Mélange le paquet de carte
      */
@@ -96,9 +117,33 @@ public class Jeu {
      * @param meurtrier le suspect
      */
      
-    // Affiche les cartes montrés par un joueur 
-    public void suggerer(Joueur joueur, Lieu lieu, Arme arme, Suspect meurtrier) {
+    /**
+     * Bascule l'état du jeu en mode suggestion
+     * @param joueur Le joueur ayant fait la suggestion
+     * @param meurtrier Le suspect
+     * @param lieu le lieu présumé
+     * @param arme l'arme présumé
+     */
+    public void suggerer(Joueur joueur, Suspect meurtrier, Lieu lieu, Arme arme) {
     	
+        int nbJoueurDemande = 0;
+        // Récupère l'index du joueur ayant fait une suggestion
+        int index = joueurs.indexOf(joueur);
+        
+        // Passe au joueur suivant
+        index++;
+        index %= joueurs.size();
+        
+        // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
+        while (joueurs.get(index).montrerCarte(lieu, arme, meurtrier) != null && nbJoueurDemande != joueurs.size() - 1)
+        {
+            // On passe aux joueurs suivant
+            index++;
+            index %= joueurs.size();
+            
+            // On augmente le nombre de joueurs auquel on a posé la question
+            nbJoueurDemande++;
+        }
     }
 
     /**
@@ -113,109 +158,40 @@ public class Jeu {
         return crime.getArme().equals(arme) && crime.getLieu().equals(lieu) && crime.getMeurtrier().equals(meurtrier);
     }
 
-    public void gestionDeCommande(Joueur j)
+    /**
+     * Effectue le tour d'un joueur
+     * @param j Le joueur qui doit joueur son tour
+     */
+    public void effectuerTour(Joueur j)
     {
         if(!j.aPerdu()){
             
             String command;
             boolean finDuTour = false;
-            Scanner scan = new Scanner(System.in);
 
             while(!finDuTour)
             {
                 String[] splittedCommand; 
                 
-                System.out.println("Enter command: ");
-                command = scan.nextLine();
+                command = j.commande();
                 
                 splittedCommand = command.split(" ");
                 
-                if(splittedCommand[0].equals("move"))
-                {
-                    if(splittedCommand.length != 5)
-                    {
-                        if(suspects.contains(splittedCommand[2]) &&
-                                    lieux.contains(splittedCommand[3]) &&
-                                    armes.contains(splittedCommand[4]))
-                        {                      
-                            if(splittedCommand[1].equals("suggest"))
-                            {
-
-                            }
-                            else if(splittedCommand[1].equals("accuse"))
-                            {
-                                if(!accuser(j,new Suspect(splittedCommand[2]),new Lieu(splittedCommand[3]),new Arme(splittedCommand[4])))
-                                {
-                                    j.perdu();
-                                    System.out.println("Wrong accusation, "+j.getNom()+" has lost!");
-                                }
-                                else
-                                {
-                                    //TODO
-                                }
-                            }
-                            else
-                            {
-                                System.out.println("Wrong action, please use \"suggest\" or \"accuse\"");
-                            }
-                        }
-                        else
-                        {
-                            System.out.println("One or severals card name are incorrect, name of card available with help");
-                        }
-                    }
-                    
-                    else
-                    {
-                       System.out.println("Not enough arguments, usage: move <action> Suspect Place Weapon");
-                    }
-                }
-                
-                else if(splittedCommand[0].equals("show"))
-                {
-                    j.voirCartes();
-                }
-                else if(splittedCommand[0].equals("exit"))
-                {
-                    System.exit(0);
-                }
-                else if(splittedCommand[0].equals("help"))
-                {
-                    System.out.println("show");
-                    System.out.println("\t show your cards and status");
-                    
-                    System.out.println("move");
-                    System.out.println("\t <action> <Suspect> <Place> <Weapon>");
-                    System.out.println("\t available actions: suggest, accuse");
-                    
-                    System.out.println("exit");
-                    System.out.println("\t Leave the program");
-                    
-                    System.out.println("help");
-                    System.out.println("\t Show this message");
-                    
-                    System.out.println("Available cards: ");
-                    System.out.println("Suspects \t\t Places \t\t Weapons");
-                    
-                    for(int i=0;i<lieux.size();i++)
-                    {
-                        if(i < suspects.size())
-                            System.out.print(suspects.get(i));
-                        else 
-                            System.out.print("\t\t");
-                        System.out.print(" \t\t ");
-            
-                        System.out.print(lieux.get(i));
-                        System.out.print(" \t\t ");
-                        
-                        if(i < armes.size())
-                            System.out.print(armes.get(i));
-                        System.out.println("");
-                    }
-                }
-                else
-                {
-                    System.out.println("Wrong command, please use help to see valid command");
+                switch (splittedCommand[0]) {
+                    case "move":
+                        finDuTour = gererCommandeMove(splittedCommand, j);
+                        break;
+                    case "show":
+                        j.voirCartes();
+                        break;
+                    case "exit":
+                        System.exit(0);
+                    case "help":
+                        displayHelp();
+                        break;
+                    default:
+                        System.out.println("Wrong command, please use help to see valid command");
+                        break;
                 }
             }  
         }
@@ -278,5 +254,105 @@ public class Jeu {
             System.err.println("Le fichier n'existe pas...");
             System.exit(1);
         }
+    }
+    
+    /**
+     * Affiche l'aide du jeu
+     */
+    private void displayHelp()
+    {
+        System.out.println("show");
+        System.out.println("\t show your cards and status");
+
+        System.out.println("move");
+        System.out.println("\t <action> <Suspect> <Place> <Weapon>");
+        System.out.println("\t available actions: suggest, accuse");
+
+        System.out.println("exit");
+        System.out.println("\t Leave the program");
+
+        System.out.println("help");
+        System.out.println("\t Show this message");
+
+        System.out.println("Available cards: ");
+        System.out.println("Suspects \t\t Places \t\t Weapons");
+
+        for (int i = 0; i < lieux.size(); i++) {
+            if (i < suspects.size()) {
+                System.out.print(suspects.get(i));
+            } else {
+                System.out.print("\t\t");
+            }
+            System.out.print(" \t\t ");
+
+            System.out.print(lieux.get(i));
+            System.out.print(" \t\t ");
+
+            if (i < armes.size()) {
+                System.out.print(armes.get(i));
+            }
+            System.out.println("");
+        }
+    }
+    
+    /**
+     * Gère la commande move d'un joueur
+     * @param splittedCommand Un tableau contenant chaque morceau de la commande
+     * @param j Le joueur ayant effectué cette commande
+     */
+    private boolean gererCommandeMove(String[] splittedCommand, Joueur j)
+    {
+        if (splittedCommand.length != 5) 
+        {
+            if (suspects.contains(splittedCommand[2])
+                    && lieux.contains(splittedCommand[3])
+                    && armes.contains(splittedCommand[4])) 
+            {
+                
+                // On créé les cartes entré dans la commandes
+                Suspect suspect = new Suspect(splittedCommand[2]);
+                Lieu lieu = new Lieu(splittedCommand[3]);
+                Arme arme = new Arme(splittedCommand[4]);
+
+                // Si l'action est une suggestion
+                if (splittedCommand[1].equals("suggest")) 
+                {
+                    suggerer(j, suspect, lieu, arme);
+                    return true;
+                } 
+                
+                // Si l'action est une accusation
+                else if (splittedCommand[1].equals("accuse")) 
+                {
+                    if (!accuser(j, suspect, lieu, arme)) 
+                    {
+                        j.perdu();
+                        System.out.println("Wrong accusation, " + j.getNom() + " has lost!");
+                        return true;
+                    } else 
+                    {
+                        gagne = true;
+                        return true;
+                    }
+                } 
+
+                // Instruction erronée
+                else 
+                {
+                    System.out.println("Wrong action, please use \"suggest\" or \"accuse\"");
+                }
+            } 
+           
+            else 
+            {
+                System.out.println("One or severals card name are incorrect, name of card available with help");
+            }
+        } 
+        
+        else
+        {
+            System.out.println("Not enough arguments, usage: move <action> Suspect Place Weapon");
+        }
+        return false;
     }
 }

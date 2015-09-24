@@ -8,25 +8,29 @@ import java.util.*;
  */
 public abstract class Joueur {
 
-    /**
-     * 
-     */
-    public Joueur() {
-    }
-
     private String nom;
-    private boolean muet=false;
+    private boolean perdu=false;
     private LinkedList<Carte> main;
+    
+    /**
+     * Créé un joueur
+     * @param nom le nom du joueur
+     */
+    public Joueur(String nom) {
+        this.nom = nom;
+    }
      
      /**
-      * 
-      * @return 
+      * Obtient le nom du joueur
+      * @return le nom du joueur
       */
      public String getNom(){
          return this.nom;
      }
      
-    // Affiche chaque carte de la main du joueur
+    /**
+     * Affiche la main du joueur
+     */
     public void voirCartes() {
         for(Carte c : main)
         {
@@ -39,14 +43,6 @@ public abstract class Joueur {
                 type = "place";
             System.out.println(type + ": " + c.getNom());
         }
-    }
-    
-    public Carte montreCarte(){
-        
-        Scanner sc = new Scanner(System.in);
-        String nom = sc.nextLine();
-        
-        return null;
     }
     
     /**
@@ -64,7 +60,6 @@ public abstract class Joueur {
      * @param suspect suspect suggéré
      * @return
      */
-     
     public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
         LinkedList<Carte> card = null;
         if(main.contains(lieu))
@@ -80,7 +75,7 @@ public abstract class Joueur {
         Scanner sc=new Scanner(System.in);
         int choix,cpt=0;
         do{
-            System.out.println("Please, chose the card you want to show to the other player:\n");
+            System.out.println("Please, choose the card you want to show to the other player:\n");
             for(Carte c:card)
                 System.out.println((cpt+1)+". "+c.toString());
             choix=sc.nextInt();
@@ -88,12 +83,25 @@ public abstract class Joueur {
         return card.get(choix-1);
     }
     
+    /**
+     * Permet de mettre l'état du joueur à perdu
+     */
     public void perdu() {
-        this.muet = true;
+        this.perdu = true;
+    }
+    
+    /**
+     * Indique si le joueur a perdu
+     * @return true si le joueur a perdu, false sinon
+     */
+    public boolean aPerdu()
+    {
+        return this.perdu;
     }
 
     /**
-     * @return
+     * Demande une commande au joueur
+     * @return la commande du joueur
      */
     public abstract String commande();
 
