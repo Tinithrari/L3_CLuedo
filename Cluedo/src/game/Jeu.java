@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Classe représentant les composantes principales du jeu cluedo
  */
 public class Jeu {
 
-    private LinkedList<Carte> paquet;
+    private Stack<Carte> paquet;
     private LinkedList<Joueur> joueurs;
     private Crime crime;
     private boolean gagne;
@@ -29,7 +30,7 @@ public class Jeu {
         this.joueurs = joueurs;
         gagne = false;
         
-        paquet = new LinkedList<Carte>();
+        paquet = new Stack<Carte>();
         armes = new LinkedList<String>();
         lieux = new LinkedList<String>();
         suspects = new LinkedList<String>();
@@ -78,16 +79,16 @@ public class Jeu {
     /**
      * Distribue les cartes aux différents joueurs
      */
-    private void distribuer() {
-    	int nbJ = joueurs.size();
-        int p=18/nbJ; // Nombre de cartes que les joueurs auront au minimum chacun
-		int k=0;
-		for(int i=0;i<p;i++)
-			for(int l=0;l<nbJ;l++)
-				joueurs.get(l).addCard(paquet.get(k++));
-		if(18%nbJ!=0) // Cas où les joueurs n'auront pas le même nombre de cartes (4 ou 5 joueurs)
-			for(int a=0;a<18%nbJ;a++)
-				joueurs.get(a).addCard(paquet.get(k++));
+    private void distribuer() 
+    {
+    	int iterator = 0;
+        
+        while (! paquet.empty())
+        {
+            joueurs.get(iterator).addCard(paquet.pop());
+            iterator++;
+            iterator %= joueurs.size();
+        }
     }
     
     /**
@@ -222,7 +223,7 @@ public class Jeu {
     private void loadLieu()
     {
         try {
-            BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/liey.txt")));
+            BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/lieu.txt")));
             String line;
             
             while ((line = bR.readLine()) != null)
