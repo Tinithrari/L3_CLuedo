@@ -282,7 +282,7 @@ public class Jeu {
         System.out.println("\t Show this message");
 
         System.out.println("Available cards: ");
-        System.out.println("Suspects\t\t\tPlaces\t\t\t\tWeapons");
+        System.out.println("Suspects\t\t\tPlaces\t\t\tWeapons");
 
         for (int i = 0; i < lieux.size(); i++) {
             int nombreTabulation;
@@ -292,23 +292,35 @@ public class Jeu {
                 mot = suspects.get(i);
                 System.out.print(mot);
             }
-            for(int j = 0; j < 5 - mot.length()/4  ; j++)
+            if(mot.equals(""))
             {
-                System.out.print("\t");
+                for(int j = 0; j < 4 - mot.length()/4  ; j++)
+                {
+                    System.out.print("\t");
+                }
             }
             
+            else
+            {
+                for(int j = 0; j <= 4 - mot.length()/4  ; j++)
+                {
+                    System.out.print("\t");
+                }
+            }
+           
             mot = lieux.get(i);
             
-            System.out.print(mot);
+            System.out.print(mot);          
             
-            for(int j = 0; j < 5 - mot.length()/4  ; j++)
-            {
+            for(int j = 0; j < 4 - mot.length()/4  ; j++)
                 System.out.print("\t");
-            }
-
-            if (i < armes.size()) {
+            
+            if(mot.length() == 12)
+                System.out.print("\t");
+            
+            if (i < armes.size())
                 System.out.print(armes.get(i));
-            }
+            
             System.out.println("");
         }
     }
