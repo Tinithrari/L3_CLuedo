@@ -18,6 +18,7 @@ public abstract class Joueur {
      */
     public Joueur(String nom) {
         this.nom = nom;
+        this.main = new LinkedList<Carte>();
     }
      
      /**
