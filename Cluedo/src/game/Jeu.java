@@ -135,9 +135,11 @@ public class Jeu {
         index++;
         index %= joueurs.size();
         
+        Carte c;
         // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
-        while (joueurs.get(index).montrerCarte(lieu, arme, meurtrier) != null && nbJoueurDemande != joueurs.size() - 1)
+        while ( (c=joueurs.get(index).montrerCarte(lieu, arme, meurtrier)) != null && nbJoueurDemande != joueurs.size() - 1)
         {
+            System.out.println(joueurs.get(index).getNom() + " show the card " + c);
             // On passe aux joueurs suivant
             index++;
             index %= joueurs.size();
@@ -145,6 +147,8 @@ public class Jeu {
             // On augmente le nombre de joueurs auquel on a posé la question
             nbJoueurDemande++;
         }
+        if (c == null)
+            System.out.println(joueurs.get(index).getNom() + ": I cannot disprove your suggestion.");
     }
 
     /**
@@ -165,6 +169,7 @@ public class Jeu {
      */
     public void effectuerTour(Joueur j)
     {
+        System.out.println("Tour de " + j.getNom());
         if(!j.aPerdu()){
             
             String command;
@@ -174,6 +179,7 @@ public class Jeu {
             {
                 String[] splittedCommand; 
                 
+                System.out.println("Entrer une commande");
                 command = j.commande();
                 
                 splittedCommand = command.split(" ");
@@ -303,7 +309,7 @@ public class Jeu {
      */
     private boolean gererCommandeMove(String[] splittedCommand, Joueur j)
     {
-        if (splittedCommand.length != 5) 
+        if (splittedCommand.length == 5) 
         {
             if (suspects.contains(splittedCommand[2])
                     && lieux.contains(splittedCommand[3])
@@ -332,6 +338,7 @@ public class Jeu {
                         return true;
                     } else 
                     {
+                        System.out.println("The player " + j.getNom() + " has won the game");
                         gagne = true;
                         return true;
                     }

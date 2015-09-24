@@ -1,8 +1,8 @@
 Kitchen
 Ballroom
 Conservatory
-Dining room
-Billard room
+Dining
+Billard
 Library
 Lounge
 Hall

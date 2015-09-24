@@ -62,7 +62,7 @@ public abstract class Joueur {
      * @return
      */
     public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
-        LinkedList<Carte> card = null;
+        LinkedList<Carte> card = new LinkedList<Carte>();
         if(main.contains(lieu))
             card.add(lieu);
         if(main.contains(arme))
@@ -74,11 +74,14 @@ public abstract class Joueur {
         if(card.size()==1)
             return card.get(0);
         Scanner sc=new Scanner(System.in);
-        int choix,cpt=0;
+        int choix,cpt=1;
         do{
-            System.out.println("Please, choose the card you want to show to the other player:\n");
+            System.out.println(nom + ": Please, choose the card you want to show \n");
             for(Carte c:card)
-                System.out.println((cpt+1)+". "+c.toString());
+            {
+                System.out.println((cpt)+". "+c.toString());
+                cpt++;
+            }
             choix=sc.nextInt();
         }while(choix > card.size() || choix < 0);
         return card.get(choix-1);
