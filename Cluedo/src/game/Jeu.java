@@ -137,7 +137,7 @@ public class Jeu {
         
         Carte c;
         // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
-        while ( (c=joueurs.get(index).montrerCarte(lieu, arme, meurtrier)) != null && nbJoueurDemande != joueurs.size() - 1)
+        while ( (c=joueurs.get(index).montrerCarte(lieu, arme, meurtrier)) == null && nbJoueurDemande != joueurs.size() - 1)
         {
             System.out.println(joueurs.get(index).getNom() + " show the card " + c);
             // On passe aux joueurs suivant
@@ -147,8 +147,8 @@ public class Jeu {
             // On augmente le nombre de joueurs auquel on a posé la question
             nbJoueurDemande++;
         }
-        if (c == null)
-            System.out.println(joueurs.get(index).getNom() + ": I cannot disprove your suggestion.");
+        if (c != null)
+            System.out.println(joueurs.get(index).getNom() + ": I disprove your suggestion: " + c);
     }
 
     /**
@@ -282,18 +282,29 @@ public class Jeu {
         System.out.println("\t Show this message");
 
         System.out.println("Available cards: ");
-        System.out.println("Suspects \t\t Places \t\t Weapons");
+        System.out.println("Suspects\t\t\tPlaces\t\t\t\tWeapons");
 
         for (int i = 0; i < lieux.size(); i++) {
+            int nombreTabulation;
+            String mot = "";
+            
             if (i < suspects.size()) {
-                System.out.print(suspects.get(i));
-            } else {
-                System.out.print("\t\t");
+                mot = suspects.get(i);
+                System.out.print(mot);
             }
-            System.out.print(" \t\t ");
-
-            System.out.print(lieux.get(i));
-            System.out.print(" \t\t ");
+            for(int j = 0; j < 5 - mot.length()/4  ; j++)
+            {
+                System.out.print("\t");
+            }
+            
+            mot = lieux.get(i);
+            
+            System.out.print(mot);
+            
+            for(int j = 0; j < 5 - mot.length()/4  ; j++)
+            {
+                System.out.print("\t");
+            }
 
             if (i < armes.size()) {
                 System.out.print(armes.get(i));
