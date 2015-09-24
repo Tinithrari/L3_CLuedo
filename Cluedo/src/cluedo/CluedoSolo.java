@@ -37,6 +37,8 @@ public class CluedoSolo {
             iterator++;
             iterator %= joueurs.size();
         }
+        if (j1.aPerdu() && j2.aPerdu() && j3.aPerdu() && j4.aPerdu())
+            System.out.println("Nobody has won the game");
     }
     
     public static void main(String[] args) {
