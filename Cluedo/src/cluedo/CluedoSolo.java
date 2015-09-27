@@ -4,6 +4,7 @@ import game.Jeu;
 import game.Joueur;
 import game.JoueurHumain;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Représente l'interface de lancement du cluedo
@@ -16,36 +17,51 @@ public class CluedoSolo {
     /**
      * Permet de lancer une partie
      */
-    public void run()
+    public void run(int nbJoueur)
     {
-        JoueurHumain j1 = new JoueurHumain("Joueur 1"), j2 = new JoueurHumain("Joueur 2"), j3 = new JoueurHumain("Joueur 3"), j4 = new JoueurHumain("Joueur 4");
+        int numeroJoueur;
         Jeu jeu;
         LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
         int iterator = 0;
         
-        joueurs.add(j1);
-        joueurs.add(j2);
-        joueurs.add(j3);
-        joueurs.add(j4);
+        for (numeroJoueur = 1; numeroJoueur <= nbJoueur; numeroJoueur++)
+            joueurs.add(new JoueurHumain("Joueur " + numeroJoueur));
         
         jeu = new Jeu(joueurs);
         
-        while (! (jeu.estGagne() || (j1.aPerdu() && j2.aPerdu() && j3.aPerdu() && j4.aPerdu() ) ) )
+        while (! (jeu.estGagne() || partiePerdu(joueurs) ) )
         {
             jeu.effectuerTour(joueurs.get(iterator));
             
             iterator++;
             iterator %= joueurs.size();
         }
-        if (j1.aPerdu() && j2.aPerdu() && j3.aPerdu() && j4.aPerdu())
+        if (partiePerdu(joueurs))
             System.out.println("Nobody has won the game");
+    }
+    
+    private boolean partiePerdu(LinkedList<Joueur> joueurs)
+    {
+        boolean partiePerdu = true;
+        
+        for (Joueur j : joueurs)
+            partiePerdu &= j.aPerdu();
+        
+        return partiePerdu;
     }
     
     public static void main(String[] args) {
         // TODO code application logic here
         CluedoSolo game = new CluedoSolo();
+        Scanner sc = new Scanner(System.in);
+        int nbJoueur = 0;
         
-        game.run();
+        while (nbJoueur < 3 || nbJoueur > 6)
+        {
+            System.out.println("Entrer un nombre de joueurs (entre 3 et 6)");
+            nbJoueur = sc.nextInt();
+        }
+        game.run(nbJoueur);
     }
     
 }
