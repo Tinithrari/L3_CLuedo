@@ -139,7 +139,10 @@ public class Jeu {
         // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
         while ( (c=joueurs.get(index).montrerCarte(lieu, arme, meurtrier)) == null && nbJoueurDemande != joueurs.size() - 1)
         {
-            System.out.println(joueurs.get(index).getNom() + " show the card " + c);
+            if (c!=null)
+                System.out.println(joueurs.get(index).getNom() + " show the card " + c);
+            else
+                System.out.println(joueurs.get(index).getNom() + " have not one of them");
             // On passe aux joueurs suivant
             index++;
             index %= joueurs.size();
@@ -169,9 +172,9 @@ public class Jeu {
      */
     public void effectuerTour(Joueur j)
     {
-        System.out.println("Tour de " + j.getNom());
         if(!j.aPerdu()){
             
+            System.out.println("Tour de " + j.getNom());
             String command;
             boolean finDuTour = false;
 
@@ -202,6 +205,9 @@ public class Jeu {
                 }
             }  
         }
+        
+        else
+            System.out.println(j.getNom() + " has lost, he can't play anymore");
     }
     /**
      * Charge les cartes armes à partir du fichier arme.tt dans le package data
