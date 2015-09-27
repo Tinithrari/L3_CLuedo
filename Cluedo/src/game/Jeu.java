@@ -135,20 +135,26 @@ public class Jeu {
         index++;
         index %= joueurs.size();
         
-        Carte c;
+        
+        Carte c = null;
         // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
-        while ( (c=joueurs.get(index).montrerCarte(lieu, arme, meurtrier)) == null && nbJoueurDemande != joueurs.size() - 1)
+        while ( (c == null && nbJoueurDemande != joueurs.size() - 1))
         {
-            if (c!=null)
-                System.out.println(joueurs.get(index).getNom() + " show the card " + c);
-            else
-                System.out.println(joueurs.get(index).getNom() + " have not one of them");
-            // On passe aux joueurs suivant
-            index++;
-            index %= joueurs.size();
-            
-            // On augmente le nombre de joueurs auquel on a posé la question
-            nbJoueurDemande++;
+            if(joueurs.get(index) != joueur)
+            {
+                c = joueurs.get(index).montrerCarte(lieu, arme, meurtrier);
+                
+                if (c!=null)
+                    System.out.println(joueurs.get(index).getNom() + " show the card " + c);
+                else
+                    System.out.println(joueurs.get(index).getNom() + " have not one of them");
+               
+                // On augmente le nombre de joueurs auquel on a posé la question
+                nbJoueurDemande++;
+            }
+                // On passe aux joueurs suivant
+                index++;
+                index %= joueurs.size();          
         }
         if (c != null)
             System.out.println(joueurs.get(index).getNom() + ": I disprove your suggestion: " + c);
@@ -174,7 +180,7 @@ public class Jeu {
     {
         if(!j.aPerdu()){
             
-            System.out.println("Tour de " + j.getNom());
+            System.out.println("Turn of " + j.getNom());
             String command;
             boolean finDuTour = false;
 
@@ -182,7 +188,7 @@ public class Jeu {
             {
                 String[] splittedCommand; 
                 
-                System.out.println("Entrer une commande");
+                System.out.println("Enter a command");
                 command = j.commande();
                 
                 splittedCommand = command.split(" ");
@@ -224,7 +230,7 @@ public class Jeu {
                 armes.add(line);
             }
         } catch (IOException ex) {
-            System.err.println("Le fichier n'existe pas...");
+            System.err.println("The file doesn't exist ...");
             System.exit(1);
         }
     }
@@ -244,7 +250,7 @@ public class Jeu {
                 lieux.add(line);
             }
         } catch (IOException ex) {
-            System.err.println("Le fichier n'existe pas...");
+            System.err.println("The file doesn't exist ...");
             System.exit(1);
         }
     }
@@ -264,7 +270,7 @@ public class Jeu {
                 suspects.add(line);
             }
         } catch (IOException ex) {
-            System.err.println("Le fichier n'existe pas...");
+            System.err.println("The file doesn't exist ...");
             System.exit(1);
         }
     }

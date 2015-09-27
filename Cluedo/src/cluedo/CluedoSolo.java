@@ -25,7 +25,7 @@ public class CluedoSolo {
         int iterator = 0;
         
         for (numeroJoueur = 1; numeroJoueur <= nbJoueur; numeroJoueur++)
-            joueurs.add(new JoueurHumain("Joueur " + numeroJoueur));
+            joueurs.add(new JoueurHumain("Player " + numeroJoueur));
         
         jeu = new Jeu(joueurs);
         
@@ -58,7 +58,7 @@ public class CluedoSolo {
         
         while (nbJoueur < 3 || nbJoueur > 6)
         {
-            System.out.println("Entrer un nombre de joueurs (entre 3 et 6)");
+            System.out.println("How many players ? (between 3 and 6)");
             nbJoueur = sc.nextInt();
         }
         game.run(nbJoueur);

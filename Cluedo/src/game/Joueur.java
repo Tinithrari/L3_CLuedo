@@ -83,6 +83,8 @@ public abstract class Joueur {
                 cpt++;
             }
             choix=sc.nextInt();
+            
+            cpt=1; //Initialise le compteur au cas ou l'on choisit une mauvaise touche
         }while(choix > card.size() || choix < 0);
         return card.get(choix-1);
     }
