@@ -143,11 +143,6 @@ public class Jeu {
             if(joueurs.get(index) != joueur)
             {
                 c = joueurs.get(index).montrerCarte(lieu, arme, meurtrier);
-                
-                if (c!=null)
-                    System.out.println(joueurs.get(index).getNom() + " show the card " + c);
-                else
-                    System.out.println(joueurs.get(index).getNom() + " have not one of them");
                
                 // On augmente le nombre de joueurs auquel on a posé la question
                 nbJoueurDemande++;
@@ -157,7 +152,11 @@ public class Jeu {
                 index %= joueurs.size();          
         }
         if (c != null)
-            System.out.println(joueurs.get(index).getNom() + ": I disprove your suggestion: " + c);
+            for (Joueur j : joueurs)
+                j.afficherMessage(joueurs.get(index).getNom() + ": I disprove your suggestion: " + c);
+        else
+            for (Joueur j : joueurs)
+                j.afficherMessage(joueurs.get(index).getNom() + ": I cannot disprove your suggestion");
     }
 
     /**
@@ -203,7 +202,7 @@ public class Jeu {
                     case "exit":
                         System.exit(0);
                     case "help":
-                        displayHelp();
+                        j.displayHelp(lieux, armes, suspects);
                         break;
                     default:
                         System.out.println("Wrong command, please use help to see valid command");
@@ -272,68 +271,6 @@ public class Jeu {
         } catch (IOException ex) {
             System.err.println("The file doesn't exist ...");
             System.exit(1);
-        }
-    }
-    
-    /**
-     * Affiche l'aide du jeu
-     */
-    private void displayHelp()
-    {
-        System.out.println("show");
-        System.out.println("\t show your cards and status");
-
-        System.out.println("move");
-        System.out.println("\t <action> <Suspect> <Place> <Weapon>");
-        System.out.println("\t available actions: suggest, accuse");
-
-        System.out.println("exit");
-        System.out.println("\t Leave the program");
-
-        System.out.println("help");
-        System.out.println("\t Show this message");
-
-        System.out.println("Available cards: ");
-        System.out.println("Suspects\t\t\tPlaces\t\t\tWeapons");
-
-        for (int i = 0; i < lieux.size(); i++) {
-            int nombreTabulation;
-            String mot = "";
-            
-            if (i < suspects.size()) {
-                mot = suspects.get(i);
-                System.out.print(mot);
-            }
-            if(mot.equals(""))
-            {
-                for(int j = 0; j < 4 - mot.length()/4  ; j++)
-                {
-                    System.out.print("\t");
-                }
-            }
-            
-            else
-            {
-                for(int j = 0; j <= 4 - mot.length()/4  ; j++)
-                {
-                    System.out.print("\t");
-                }
-            }
-           
-            mot = lieux.get(i);
-            
-            System.out.print(mot);          
-            
-            for(int j = 0; j < 4 - mot.length()/4  ; j++)
-                System.out.print("\t");
-            
-            if(mot.length() == 12)
-                System.out.print("\t");
-            
-            if (i < armes.size())
-                System.out.print(armes.get(i));
-            
-            System.out.println("");
         }
     }
     

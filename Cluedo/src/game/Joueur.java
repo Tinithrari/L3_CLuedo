@@ -8,9 +8,9 @@ import java.util.*;
  */
 public abstract class Joueur {
 
-    private String nom;
     private boolean perdu=false;
-    private LinkedList<Carte> main;
+    protected LinkedList<Carte> main;
+    protected String nom;
     
     /**
      * Créé un joueur
@@ -55,41 +55,6 @@ public abstract class Joueur {
     }
     
     /**
-     * Retourne la carte à montrer choisie par le joueur
-     * @param lieu lieu suggéré
-     * @param arme arme suggéré
-     * @param suspect suspect suggéré
-     * @return
-     */
-    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
-        LinkedList<Carte> card = new LinkedList<Carte>();
-        if(main.contains(lieu))
-            card.add(lieu);
-        if(main.contains(arme))
-            card.add(arme);
-        if(main.contains(suspect))
-            card.add(suspect);
-        if(card.size()==0)
-            return null;
-        if(card.size()==1)
-            return card.get(0);
-        Scanner sc=new Scanner(System.in);
-        int choix,cpt=1;
-        do{
-            System.out.println(nom + ": Please, choose the card you want to show \n");
-            for(Carte c:card)
-            {
-                System.out.println((cpt)+". "+c.toString());
-                cpt++;
-            }
-            choix=sc.nextInt();
-            
-            cpt=1; //Initialise le compteur au cas ou l'on choisit une mauvaise touche
-        }while(choix > card.size() || choix < 0);
-        return card.get(choix-1);
-    }
-    
-    /**
      * Permet de mettre l'état du joueur à perdu
      */
     public void perdu() {
@@ -110,5 +75,13 @@ public abstract class Joueur {
      * @return la commande du joueur
      */
     public abstract String commande();
-
+    
+    public abstract Carte montrerCarte(Carte lieu, Carte arme, Carte suspect);
+    
+    public abstract void afficherMessage(String message);
+    
+    /**
+     * Affiche l'aide du jeu
+     */
+    public abstract void displayHelp(LinkedList<String> lieux, LinkedList<String> armes, LinkedList<String> suspects);
 }
