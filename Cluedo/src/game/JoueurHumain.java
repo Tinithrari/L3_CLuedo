@@ -74,7 +74,6 @@ public class JoueurHumain extends Joueur {
         System.out.println(message);
     }
 
-    @Override
     public void displayHelp(LinkedList<String> lieux, LinkedList<String> armes, LinkedList<String> suspects) {
         System.out.println("show");
         System.out.println("\t show your cards and status");

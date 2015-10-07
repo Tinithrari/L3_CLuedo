@@ -201,9 +201,6 @@ public class Jeu {
                         break;
                     case "exit":
                         System.exit(0);
-                    case "help":
-                        j.displayHelp(lieux, armes, suspects);
-                        break;
                     default:
                         System.out.println("Wrong command, please use help to see valid command");
                         break;

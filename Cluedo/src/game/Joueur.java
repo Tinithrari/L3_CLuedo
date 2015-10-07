@@ -79,9 +79,4 @@ public abstract class Joueur {
     public abstract Carte montrerCarte(Carte lieu, Carte arme, Carte suspect);
     
     public abstract void afficherMessage(String message);
-    
-    /**
-     * Affiche l'aide du jeu
-     */
-    public abstract void displayHelp(LinkedList<String> lieux, LinkedList<String> armes, LinkedList<String> suspects);
 }
