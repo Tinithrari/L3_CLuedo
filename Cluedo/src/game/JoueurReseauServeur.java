@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Tinithrari
  */
-public class JoueurReseauServeur extends Joueur{
+public class JoueurReseauServeur extends Joueur implements Networkable{
 
     private Socket socket;
     
@@ -27,8 +27,8 @@ public class JoueurReseauServeur extends Joueur{
     {
         String commande = null;
         try {
-            this.envoyerMessage("command");
-            commande = this.recevoirMessage();
+            this.send("command");
+            commande = this.receive();
             
         } catch (IOException ex) {
             System.err.println("Erreur de communication, fermeture du socket");
@@ -45,8 +45,8 @@ public class JoueurReseauServeur extends Joueur{
     public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
         Carte card = null;
         try {
-            this.envoyerMessage("card;lieu:" + lieu + " arme:" + arme + " suspect:" + suspect);
-            String carte = this.recevoirMessage();
+            this.send("card;lieu:" + lieu + " arme:" + arme + " suspect:" + suspect);
+            String carte = this.receive();
             
             if (carte.equals(""))
                 return null;
@@ -75,7 +75,7 @@ public class JoueurReseauServeur extends Joueur{
     @Override
     public void afficherMessage(String message) {
         try {
-            this.envoyerMessage("afficher;" + message);
+            this.send("afficher;" + message);
         } catch (IOException ex) {
             System.err.println("Erreur de communication, fermeture du socket");
             try {
@@ -86,15 +86,15 @@ public class JoueurReseauServeur extends Joueur{
         }
     }
     
-    private void envoyerMessage(String message) throws IOException
-    {
+    @Override
+    public void send(String message) throws IOException{
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         writer.println(message);
         writer.flush();
     }
-    
-    private String recevoirMessage() throws IOException
-    {
+
+    @Override
+    public String receive() throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String message = reader.readLine();
         return message;

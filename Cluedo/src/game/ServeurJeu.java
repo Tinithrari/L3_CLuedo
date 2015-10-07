@@ -21,6 +21,7 @@ public class ServeurJeu extends Thread{
     public ServeurJeu(int port, int max_connection) throws IOException
     {
         this.sSocket = new ServerSocket(port);
+        this.sSocket.setSoTimeout(250);
         this.clients = new LinkedList<JoueurReseauServeur>();
         this.max_connection = max_connection;
         this.nb_connection = 0;

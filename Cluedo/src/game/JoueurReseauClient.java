@@ -5,14 +5,17 @@
  */
 package game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.LinkedList;
 
 /**
  *
  * @author Tinithrari
  */
-public class JoueurReseauClient extends JoueurHumain{
+public class JoueurReseauClient extends JoueurHumain implements Networkable{
     
     private Socket socket;
     
@@ -23,17 +26,30 @@ public class JoueurReseauClient extends JoueurHumain{
     }
 
     @Override
-    public String commande() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void afficherMessage(String message) {
+        super.afficherMessage(message); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String commande() {
+        return super.commande(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
     
+        @Override
+    public void send(String message) throws IOException{
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        writer.println(message);
+        writer.flush();
+    }
+
     @Override
-    public void afficherMessage(String message) {
-        System.out.println(message);
+    public String receive() throws IOException{
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String message = reader.readLine();
+        return message;
     }
 }
