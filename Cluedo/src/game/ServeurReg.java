@@ -11,14 +11,14 @@ import java.util.LinkedList;
  *
  * @author Tinithrari
  */
-public class ServeurJeu extends Thread{
+public class ServeurReg extends Thread{
     
     private ServerSocket sSocket;
     private LinkedList<JoueurReseauServeur> clients;
     private int max_connection;
     private int nb_connection;
     
-    public ServeurJeu(int port, int max_connection) throws IOException
+    public ServeurReg(int port, int max_connection) throws IOException
     {
         this.sSocket = new ServerSocket(port);
         this.sSocket.setSoTimeout(250);

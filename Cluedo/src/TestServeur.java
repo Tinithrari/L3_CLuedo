@@ -1,6 +1,6 @@
 
 import game.JoueurReseauServeur;
-import game.ServeurJeu;
+import game.ServeurReg;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -21,7 +21,7 @@ public class TestServeur {
     {
         int nbConnecte = 0;
         try {
-            ServeurJeu serveur = new ServeurJeu(12345, 1);
+            ServeurReg serveur = new ServeurReg(12345, 1);
             serveur.start();
             
             while (serveur.getNb_connection() != 1);
