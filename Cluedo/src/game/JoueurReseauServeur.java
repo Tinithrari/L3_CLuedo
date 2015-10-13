@@ -15,11 +15,15 @@ import java.util.logging.Logger;
 public class JoueurReseauServeur extends Joueur implements Networkable{
 
     private Socket socket;
+    //private Jeu j;
+    //Liste de joueurs clients ?
     
     public JoueurReseauServeur(Socket socket, String nom)
     {
         super(nom);
         this.socket = socket;
+        //j = new Jeu();
+        //Initialisation de joueurs clients ?
     }
 
     @Override
@@ -99,4 +103,55 @@ public class JoueurReseauServeur extends Joueur implements Networkable{
         String message = reader.readLine();
         return message;
     }
+
+	//gere ses propres commandes en local help,show,exit
+	public void maCommande()
+	{
+		Scanner scan = new Scanner(System.in);
+		
+		String commande = scan.nextLine();
+		String[] splitted = commande.split(" ");
+		
+		switch(splitted[0])
+		{
+			case "exit" :
+				try{
+					socket.close();
+					this.send("L'hôte a quitté la partie, fermeture du socket...");
+					System.err.println("L'hôte a quitté la partie, fermeture du socket...");
+				}catch (IOException ex1) {
+		    		Logger.getLogger(JoueurReseauServeur.class.getName()).log(Level.SEVERE, null, ex1);
+		    	}
+		    	break;
+		    
+		    case "help" : 
+		    	System.out.println("Aide du jeu");
+		    	break;
+		    
+		    case "show" :
+		    	this.voirCartes();
+		    	break;
+		    	
+		  	case "move" :
+				//Instance du jeu j et joueur joueur
+				//j.gererCommandeMove(splitted,joueurclient);
+				break;
+        }
+	}
+	
+	//Traite les commandes que les joueurs clients envoie au serveur
+	public void traitementCommande()
+	{
+		//On ne gere que move car les autres commandes sont en internes
+		String message = commande();
+		String[] splitted = commande.split(" ");
+		
+		switch(splitted[0])
+		{
+			case "move" :
+				//Instance du jeu j et joueur joueur
+				//j.gererCommandeMove(splitted,joueurclient);
+				break;
+		}
+	}
 }
