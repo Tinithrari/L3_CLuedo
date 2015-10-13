@@ -10,7 +10,7 @@ import java.net.Socket;
  * Classe permettant au serveur de communiquer avec ses joueurs
  * @author Tinithrari
  */
-public class JoueurReseauServeur extends Joueur implements Networkable{
+public class JoueurReseauServeur extends Joueur{
 
     private Socket socket;
     

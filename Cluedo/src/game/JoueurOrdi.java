@@ -1,6 +1,7 @@
 package game;
 
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -30,6 +31,16 @@ public class JoueurOrdi extends Joueur {
 
     @Override
     public void afficherMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void send(String message) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String receive() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

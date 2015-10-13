@@ -212,4 +212,14 @@ public class JoueurHumain extends Joueur {
             }
         }
     }
+
+    @Override
+    public void send(String message) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String receive() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
