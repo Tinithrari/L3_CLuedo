@@ -1,6 +1,9 @@
 package game;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -8,12 +11,19 @@ import java.util.*;
  */
 public class JoueurHumain extends Joueur {
 
+    public static LinkedList<String> armes;
+    public static LinkedList<String> suspects;
+    public static LinkedList<String> lieux;
+    
     /**
      * Créé un joueur humain
      * @param nom Le nom du joueur
      */
     public JoueurHumain(String nom) {
         super(nom);
+        loadArme();
+        loadLieu();
+        loadSuspect();
     }
 
     /**
@@ -131,6 +141,75 @@ public class JoueurHumain extends Joueur {
                 System.out.print(armes.get(i));
             
             System.out.println("");
+        }
+    }
+    
+    /**
+     * Charge les cartes armes à partir du fichier arme.tt dans le package data
+     */
+    private void loadArme()
+    {
+        if (armes == null)
+        {
+            armes = new LinkedList<String>();
+            try {
+                BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/arme.txt")));
+                String line;
+
+                while ((line = bR.readLine()) != null)
+                {
+                    armes.add(line);
+                }
+            } catch (IOException ex) {
+                System.err.println("The file doesn't exist ...");
+                System.exit(1);
+            }
+        }
+    }
+    
+    /**
+     * Charge les cartes suspects à partir du fichier suspect.txt dans le package data
+     */
+    private void loadSuspect()
+    {
+        if (suspects == null)
+        {
+            suspects = new LinkedList<String>();
+            try {
+                BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/suspect.txt")));
+                String line;
+
+                while ((line = bR.readLine()) != null)
+                {
+                    suspects.add(line);
+                }
+            } catch (IOException ex) {
+                System.err.println("The file doesn't exist ...");
+                System.exit(1);
+            }
+        }
+    }
+    
+    /**
+     * Charge les cartes lieu à partir du fichier lieu.txt dans le package data
+     */
+    private void loadLieu()
+    {
+        if (lieux == null)
+        {
+            lieux = new LinkedList<String>();
+            try {
+                BufferedReader bR = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data/lieu.txt")));
+                String line;
+
+                while ((line = bR.readLine()) != null)
+                {
+                    lieux.add(line);
+                }
+            } catch (IOException ex) {
+                System.err.println("The file doesn't exist ...");
+                System.exit(1);
+            }
         }
     }
 }

@@ -231,6 +231,8 @@ public class Jeu {
         }
     }
     
+    
+    
     /**
      * Charge les cartes lieu à partir du fichier lieu.txt dans le package data
      */
