@@ -11,6 +11,7 @@ public abstract class Joueur {
     private boolean perdu=false;
     protected LinkedList<Carte> main;
     protected String nom;
+    private int num_joueur;
     
     /**
      * Créé un joueur
@@ -20,7 +21,23 @@ public abstract class Joueur {
         this.nom = nom;
         this.main = new LinkedList<Carte>();
     }
-     
+
+    /**
+     * Permet de récupérer le numéro du joueur
+     * @return Le numéro du joueur
+     */
+    public int getNum_joueur() {
+        return num_joueur;
+    }
+
+    /**
+     * Permet de définir le numéro du joueur
+     * @param num_joueur 
+     */
+    public void setNum_joueur(int num_joueur) {
+        this.num_joueur = num_joueur;
+    }
+    
      /**
       * Obtient le nom du joueur
       * @return le nom du joueur

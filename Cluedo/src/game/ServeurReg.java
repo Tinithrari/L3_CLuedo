@@ -30,22 +30,41 @@ public class ServeurReg extends Thread{
     @Override
     public void run() 
     {    
-        while (true)
+        while (nb_connection < max_connection)
         {
-            if (nb_connection < max_connection)
+            try 
             {
-                try {
-                    Socket s = sSocket.accept();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    String nom = reader.readLine();
-                    
-                    JoueurReseauServeur j = new JoueurReseauServeur(s, nom);
-                    
-                    clients.add(j);
-                    this.setNb_connection(this.getNb_connection() + 1);
-                } catch (IOException ex) {
-                    //TODO
+                Socket s = sSocket.accept();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                String request = reader.readLine();
+                String[] splitted_request = request.split(" ");
+                String nom;
+                
+                if (splitted_request.length > 0)
+                {
+                    if (splitted_request[0].equals("register"))
+                    {
+                        if (splitted_request.length == 2)
+                        {
+                            nom = splitted_request[1];
+                            JoueurReseauServeur j = new JoueurReseauServeur(s, nom);
+                            try 
+                            {
+                                j.send("ack " + this.getNb_connection());
+                                this.setNb_connection(this.getNb_connection() + 1);
+                            }
+                            catch (IOException e)
+                            {
+                                System.err.println("Erreur de communication avec le client");
+                                s.close();
+                            }
+                        }
+                    }
                 }
+            } 
+            catch (IOException ex) 
+            {
+                System.err.println("Erreur lors de la création du serveur, fermeture...");
             }
         }
     }

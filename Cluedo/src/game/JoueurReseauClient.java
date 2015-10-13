@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 import java.io.BufferedReader;
@@ -12,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- *
+ * Classe permettant au client de communiquer avec le serveur
  * @author Tinithrari
  */
 public class JoueurReseauClient extends JoueurHumain implements Networkable{
@@ -26,12 +21,14 @@ public class JoueurReseauClient extends JoueurHumain implements Networkable{
     }
 
     @Override
-    public void afficherMessage(String message) {
+    public void afficherMessage(String message) 
+    {
         super.afficherMessage(message); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String commande() {
+    public String commande() 
+    {
         return super.commande(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,15 +36,17 @@ public class JoueurReseauClient extends JoueurHumain implements Networkable{
         return socket;
     }
     
-        @Override
-    public void send(String message) throws IOException{
+    @Override
+    public void send(String message) throws IOException
+    {
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         writer.println(message);
         writer.flush();
     }
 
     @Override
-    public String receive() throws IOException{
+    public String receive() throws IOException
+    {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String message = reader.readLine();
         return message;

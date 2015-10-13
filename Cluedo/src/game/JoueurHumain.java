@@ -79,7 +79,7 @@ public class JoueurHumain extends Joueur {
         System.out.println("\t show your cards and status");
 
         System.out.println("move");
-        System.out.println("\t <action> <Suspect> <Place> <Weapon>");
+        System.out.println("\t <action> <Suspect> <Weapon> <Place>");
         System.out.println("\t available actions: suggest, accuse");
 
         System.out.println("exit");
