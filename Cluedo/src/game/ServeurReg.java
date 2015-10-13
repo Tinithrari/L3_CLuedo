@@ -32,9 +32,10 @@ public class ServeurReg extends Thread{
     {    
         while (nb_connection < max_connection)
         {
+            Socket s = new Socket();
             try 
             {
-                Socket s = sSocket.accept();
+                s = sSocket.accept();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String request = reader.readLine();
                 String[] splitted_request = request.split(" ");
@@ -64,7 +65,8 @@ public class ServeurReg extends Thread{
             } 
             catch (IOException ex) 
             {
-                System.err.println("Erreur lors de la création du serveur, fermeture...");
+                if (s.isBound())
+                    System.err.println("Erreur lors de la création du serveur, fermeture...");
             }
         }
     }

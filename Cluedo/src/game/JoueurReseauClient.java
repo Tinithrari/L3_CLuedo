@@ -14,10 +14,22 @@ public class JoueurReseauClient extends JoueurHumain implements Networkable{
     
     private Socket socket;
     
-    public JoueurReseauClient(String nom, Socket socket)
+    public JoueurReseauClient(String nom, Socket socket) throws IOException
     {
         super(nom);
         this.socket = socket;
+        send("register " + nom);
+        
+        String request = receive();
+        String[] splitted_request = request.split(" ");
+        
+        if (splitted_request.length == 2 && splitted_request[0].equals("ack"))
+        {
+            int num_client = Integer.parseInt(splitted_request[1]);
+            this.setNum_joueur(num_client);
+        }
+        else
+            throw new IOException("Requête erronée de la part du serveur " + socket.getInetAddress().toString());
     }
 
     @Override

@@ -1,11 +1,7 @@
 
 import game.JoueurReseauClient;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,33 +16,16 @@ import java.util.logging.Logger;
 public class TestClient {
     public static void main(String[] args)
     {
-        
         try {
-            JoueurReseauClient client = new JoueurReseauClient("Xavier", new Socket(InetAddress.getByName("localhost"), 12345));
-            client.send(client.getNom());
+            JoueurReseauClient client = new JoueurReseauClient("John", new Socket("localhost", 12345));
+            client.send("register " + client.getNom());
+            String message = client.receive();
             
-            while (true)
-            {
-                Scanner sc = new Scanner(System.in);
-                String message = client.receive();
-                
-                if (message.equals("command"))
-                {
-                    message = sc.nextLine();
-                    client.send(message);
-                }
-                else
-                {
-                    String[] divided = message.split(";");
-                    if (divided[0].equals("afficher"))
-                    {
-                        System.out.println(divided[1]);
-                    }
-                }
-            }
-        } 
-        catch (IOException ex) {
-            Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (! message.equals("ack 0"))
+                throw new IOException("Erreur de communication");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(1);
         }
     }
 }
