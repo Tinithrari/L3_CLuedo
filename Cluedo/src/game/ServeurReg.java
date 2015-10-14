@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  *
@@ -14,17 +15,29 @@ import java.util.LinkedList;
 public class ServeurReg extends Thread{
     
     private ServerSocket sSocket;
-    private LinkedList<JoueurReseauServeur> clients;
+    private LinkedList<Joueur> clients;
     private int max_connection;
     private int nb_connection;
     
-    public ServeurReg(int port, int max_connection) throws IOException
+    public ServeurReg(int port, int max_connection, boolean embedded) throws IOException
     {
         this.sSocket = new ServerSocket(port);
         this.sSocket.setSoTimeout(250);
-        this.clients = new LinkedList<JoueurReseauServeur>();
+        this.clients = new LinkedList<Joueur>();
         this.max_connection = max_connection;
-        this.nb_connection = 0;
+        if (! embedded)
+            this.nb_connection = 0;
+        else
+        {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter your name");
+            String nom = sc.nextLine();
+            
+            clients.add(new JoueurHumain(nom));
+            
+            clients.get(0).setNum_joueur(0);
+            this.nb_connection = 1;
+        }
     }
 
     @Override
@@ -71,12 +84,8 @@ public class ServeurReg extends Thread{
         }
     }
 
-    public synchronized LinkedList<JoueurReseauServeur> getClients() {
+    public synchronized LinkedList<Joueur> getClients() {
         return clients;
-    }
-
-    public synchronized void setClients(LinkedList<JoueurReseauServeur> clients) {
-        this.clients = clients;
     }
 
     public synchronized int getMax_connection() {

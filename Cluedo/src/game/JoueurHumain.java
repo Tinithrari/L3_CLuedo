@@ -209,7 +209,6 @@ public class JoueurHumain extends Joueur {
      * Permet d'envoyer un message aux client local afin d'effectuer un traitement
      * Pour obtenir le retour, utiliser la fonction receive
      * @param message Le message à faire parvenir au client local
-     * @see receive()
      */
     @Override
     public void send(String message) throws IOException {

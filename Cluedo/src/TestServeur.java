@@ -1,4 +1,6 @@
 
+import game.Jeu;
+import game.JoueurHumain;
 import game.ServeurReg;
 import java.io.IOException;
 
@@ -16,8 +18,10 @@ public class TestServeur {
     public static void main(String[] args)
     {
         try {
-            ServeurReg server = new ServeurReg(12345, 1);
+            ServeurReg server = new ServeurReg(12345, 1, true);
             server.run();
+            Jeu jeu = new Jeu(server.getClients());
+            jeu.getJoueurs().get(0).voirCartes();
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(1);

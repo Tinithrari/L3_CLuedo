@@ -94,8 +94,8 @@ public class Jeu {
         while (! paquet.empty())
         {
             if (liste_cartes.get(iterator).length() != 0)
-                liste_cartes.get(iterator).concat(",");
-            liste_cartes.get(iterator).concat(paquet.pop().toString());
+                liste_cartes.add(iterator, liste_cartes.get(iterator).concat(","));
+            liste_cartes.add(iterator, liste_cartes.get(iterator).concat(paquet.pop().getNom()));
             iterator++;
             iterator %= joueurs.size();
         }
@@ -103,11 +103,11 @@ public class Jeu {
         for ( Joueur j : joueurs)
         {
             if ( noms_joueurs.length() != 0 )
-                noms_joueurs.concat(",");
-            noms_joueurs.concat(j.getNom());
+                noms_joueurs += ",";
+            noms_joueurs += j.getNom();
         }
         
-        for (int i = 0; i < liste_cartes.size(); i++)
+        for (int i = 0; i < joueurs.size(); i++)
                 try {
                     joueurs.get(i).send( "start " + noms_joueurs + " " + liste_cartes.get(i));
                 } catch (IOException ex) {
