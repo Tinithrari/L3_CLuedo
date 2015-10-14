@@ -242,15 +242,15 @@ public class JoueurHumain extends Joueur {
         }
         else if (splitted[0].equals("ask") && splitted.length == 4)
         {
-        	if (suspects.contains(splitted[1]) && armes.contains(splitted[2]) && lieux.contains())
-        	{
-            	Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3])));
+            if (suspects.contains(splitted[1]) && armes.contains(splitted[2]) && lieux.contains(splitted[3]))
+            {
+                Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3]));
             	
-            	if (card != null)
-            		buffer = card.toString();
-            	else
-            		buffer = null;
-        	}
+                if (card != null)
+                    buffer = card.toString();
+                else
+                    buffer = null;
+            }
         }
         else if (splitted[0].equals("info"))
         {
