@@ -37,7 +37,6 @@ public class JoueurHumain extends Joueur {
      * @param suspect suspect suggéré
      * @return
      */
-    @Override
     public Carte montrerCarte(Suspect suspect, Arme arme, Lieu lieu) {
         LinkedList<Carte> card = new LinkedList<Carte>();
         if(main.contains(lieu))

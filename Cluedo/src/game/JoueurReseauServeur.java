@@ -21,12 +21,6 @@ public class JoueurReseauServeur extends Joueur{
     }
 
     @Override
-    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) 
-    {
-        return null;
-    }
-
-    @Override
     public void afficherMessage(String message) 
     {
         

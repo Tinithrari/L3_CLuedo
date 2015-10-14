@@ -23,12 +23,7 @@ public class JoueurOrdi extends Joueur {
         // TODO implement here
         return "";
     }
-
-    @Override
-    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void afficherMessage(String message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -41,6 +36,16 @@ public class JoueurOrdi extends Joueur {
 
     @Override
     public String receive() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void erreur(String[] splitted) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void commencer(String[] splitted) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

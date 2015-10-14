@@ -94,8 +94,6 @@ public abstract class Joueur {
      */
     public abstract String commande();
     
-    public abstract Carte montrerCarte(Carte lieu, Carte arme, Carte suspect);
-    
     public abstract void afficherMessage(String message);
     
     public abstract void send(String message) throws IOException;
