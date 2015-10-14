@@ -253,15 +253,18 @@ public class JoueurHumain extends Joueur {
         }
         else if (splitted[0].equals("info"))
         {
-        	
+            String affichage = message.substring(splitted[0].length() - 1);
+            System.out.println(affichage);
         }
         else if (splitted[0].equals("end"))
         {
-            
-        }
-        else
-        {
-            
+            if (splitted.length == 1)
+                System.out.println("Nobody has won");
+            else
+            {
+                int num_joueur = Integer.parseInt(splitted[1]);
+                System.out.println(joueurs[num_joueur] + " has won the game");
+            }
         }
     }
 
