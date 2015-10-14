@@ -38,7 +38,7 @@ public class JoueurHumain extends Joueur {
      * @return
      */
     @Override
-    public Carte montrerCarte(Carte lieu, Carte arme, Carte suspect) {
+    public Carte montrerCarte(String suspect, String arme, String lieu) {
         LinkedList<Carte> card = new LinkedList<Carte>();
         if(main.contains(lieu))
             card.add(lieu);
@@ -74,6 +74,9 @@ public class JoueurHumain extends Joueur {
         System.out.println(message);
     }
 
+    /**
+     * Affiche l'aide sur la sortie standard
+     */
     public void displayHelp() {
         System.out.println("show");
         System.out.println("\t show your cards and status");
@@ -203,6 +206,12 @@ public class JoueurHumain extends Joueur {
         }
     }
 
+    /**
+     * Permet d'envoyer un message aux client local afin d'effectuer un traitement
+     * Pour obtenir le retour, utiliser la fonction receive
+     * @param message Le message à faire parvenir au client local
+     * @see receive
+     */
     @Override
     public void send(String message) throws IOException {
         String[] splitted = message.split(" ");
@@ -220,11 +229,18 @@ public class JoueurHumain extends Joueur {
         {
             erreur(splitted);
         }
-        else if (splitted[0].equals("move"))
+        else if (splitted[0].equals("move") )
         {
+            int numero_joueur = Integer.parseInt(splitted[1]);
             
+            System.out.print(joueurs[numero_joueur] + " :");
+            
+            for (int i = 2; i < splitted.length; i++)
+            	System.out.print(" " + splitted[i]);
+            
+            System.out.print("\n");
         }
-        else if (splitted[0].equals("ask"))
+        else if (splitted[0].equals("ask") && splitted.length == 4)
         {
             
         }
@@ -232,7 +248,7 @@ public class JoueurHumain extends Joueur {
         {
             
         }
-        else if (splitted[0].equals("ends"))
+        else if (splitted[0].equals("end"))
         {
             
         }
@@ -242,6 +258,10 @@ public class JoueurHumain extends Joueur {
         }
     }
 
+    /**
+     * Permet de recevoir la réponse du client local à une requête
+     * @return La réponse du client
+     */
     @Override
     public String receive() throws IOException {
         String tmp = buffer;
@@ -249,6 +269,10 @@ public class JoueurHumain extends Joueur {
         return tmp;
     }
     
+    /**
+     * Sous-fonction permettant de gérer un début de jeu
+     * @param splitted le tableau de chaine de la requête
+     */
     public void commencer(String[] splitted)
     {
         String[] cartes;
@@ -256,11 +280,16 @@ public class JoueurHumain extends Joueur {
         cartes = splitted[2].split(",");
 
         for (String c : cartes) {
-            if (suspects.contains(c)) {
+            if (suspects.contains(c)) 
+            {
                 this.addCard(new Suspect(c));
-            } else if (armes.contains(c)) {
+            } 
+            else if (armes.contains(c)) 
+            {
                 this.addCard(new Arme(c));
-            } else {
+            } 
+            else 
+            {
                 this.addCard(new Lieu(c));
             }
         }
@@ -295,6 +324,10 @@ public class JoueurHumain extends Joueur {
         return commande;
     }
     
+    /**
+     * Sous-fonction permettant de gérer les message d'erreur
+     * @param splitted Le tableau de chaine de la requête
+     */
     public void erreur(String[] splitted)
     {
         if (splitted[1].equals("exit"))

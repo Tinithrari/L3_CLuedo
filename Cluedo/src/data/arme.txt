@@ -1,6 +1,6 @@
-Candlestick
+CandleStick
 Dagger
-Pipe
+LeadPipe
 Revolver
 Rope
 Spanner
