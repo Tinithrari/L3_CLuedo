@@ -100,4 +100,6 @@ public abstract class Joueur {
     
     public abstract void send(String message) throws IOException;
     public abstract String receive() throws IOException;
+    public abstract void erreur(String[] splitted);
+    public abstract void commencer(String[] splitted);
 }

@@ -15,6 +15,9 @@ public class JoueurHumain extends Joueur {
     public static LinkedList<String> suspects;
     public static LinkedList<String> lieux;
     
+    private String buffer;
+    private String[] joueurs;
+    
     /**
      * Créé un joueur humain
      * @param nom Le nom du joueur
@@ -24,20 +27,7 @@ public class JoueurHumain extends Joueur {
         loadArme();
         loadLieu();
         loadSuspect();
-    }
-
-    /**
-     * Demande une commande aux joueurs
-     * @return la commande saisie par le joueur
-     */
-    @Override
-    public String commande() {
-        String commande;
-        
-        Scanner sc = new Scanner(System.in);
-        
-        commande = sc.nextLine();
-        return commande;
+        buffer = null;
     }
 
     /**
@@ -84,7 +74,7 @@ public class JoueurHumain extends Joueur {
         System.out.println(message);
     }
 
-    public void displayHelp(LinkedList<String> lieux, LinkedList<String> armes, LinkedList<String> suspects) {
+    public void displayHelp() {
         System.out.println("show");
         System.out.println("\t show your cards and status");
 
@@ -215,11 +205,119 @@ public class JoueurHumain extends Joueur {
 
     @Override
     public void send(String message) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] splitted = message.split(" ");
+        
+        if (splitted[0].equals("start") && splitted.length == 3)
+        {
+            commencer(splitted);
+        }
+        else if (splitted[0].equals("play") && splitted.length == 1)
+        {
+            String command = commande();
+            buffer = command;
+        }
+        else if (splitted[0].equals("error") && splitted.length >= 2)
+        {
+            erreur(splitted);
+        }
+        else if (splitted[0].equals("move"))
+        {
+            
+        }
+        else if (splitted[0].equals("ask"))
+        {
+            
+        }
+        else if (splitted[0].equals("info"))
+        {
+            
+        }
+        else if (splitted[0].equals("ends"))
+        {
+            
+        }
+        else
+        {
+            
+        }
     }
 
     @Override
     public String receive() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String tmp = buffer;
+        buffer = null;
+        return tmp;
+    }
+    
+    public void commencer(String[] splitted)
+    {
+        String[] cartes;
+        joueurs = splitted[1].split(",");
+        cartes = splitted[2].split(",");
+
+        for (String c : cartes) {
+            if (suspects.contains(c)) {
+                this.addCard(new Suspect(c));
+            } else if (armes.contains(c)) {
+                this.addCard(new Arme(c));
+            } else {
+                this.addCard(new Lieu(c));
+            }
+        }
+    }
+    
+    /**
+     * Demande une commande aux joueurs
+     * @return la commande saisie par le joueur
+     */
+    @Override
+    public String commande() 
+    {
+        String commande = null;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        while (commande == null)
+        {
+            commande = sc.nextLine();
+            
+            if (commande.equals("help"))
+            {
+                displayHelp();
+                commande = null;
+            }
+            else if (commande.equals("show"))
+            {
+                voirCartes();
+                commande = null;
+            }
+        }
+        return commande;
+    }
+    
+    public void erreur(String[] splitted)
+    {
+        if (splitted[1].equals("exit"))
+        {
+            int num_joueur = Integer.parseInt(splitted[2]);
+            System.err.println("The player " + joueurs[num_joueur] + " has leave the game, disconnecting...");
+        }
+        else if (splitted[1].equals("invalid"))
+        {
+            System.err.print("Wrong move :");
+            
+            for (int i = 2; i < splitted.length; i++)
+                System.err.print(" " + splitted[i]);
+            System.err.print("\n");
+        }
+        else
+        {
+            System.err.println("Unexpected error occured :");
+            
+            for (int i = 2; i < splitted.length; i++)
+                System.err.print(" " + splitted[i]);
+            
+            System.err.print("\n");
+        }
     }
 }
