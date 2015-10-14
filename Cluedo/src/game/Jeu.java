@@ -3,9 +3,12 @@ package game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe représentant les composantes principales du jeu cluedo
@@ -79,16 +82,44 @@ public class Jeu {
     /**
      * Distribue les cartes aux différents joueurs
      */
-    private void distribuer() 
+    private void distribuer()
     {
     	int iterator = 0;
+        ArrayList<String> liste_cartes = new ArrayList<String>();
+        String noms_joueurs = "";
+        
+        for (int i = 0; i < joueurs.size(); i++)
+            liste_cartes.add(new String(""));
         
         while (! paquet.empty())
         {
-            joueurs.get(iterator).addCard(paquet.pop());
+            if (liste_cartes.get(iterator).length() != 0)
+                liste_cartes.get(iterator).concat(",");
+            liste_cartes.get(iterator).concat(paquet.pop().toString());
             iterator++;
             iterator %= joueurs.size();
         }
+        
+        for ( Joueur j : joueurs)
+        {
+            if ( noms_joueurs.length() != 0 )
+                noms_joueurs.concat(",");
+            noms_joueurs.concat(j.getNom());
+        }
+        
+        for (int i = 0; i < liste_cartes.size(); i++)
+                try {
+                    joueurs.get(i).send( "start " + noms_joueurs + " " + liste_cartes.get(i));
+                } catch (IOException ex) {
+                    joueurs.remove(i);
+                    for (Joueur j : joueurs)
+                        try {
+                            j.send("error other");
+                        } catch (IOException ex1) {
+                            System.exit(1);
+                        }
+                    System.exit(1);
+                }
     }
     
     /**
@@ -142,7 +173,7 @@ public class Jeu {
         {
             if(joueurs.get(index) != joueur)
             {
-                c = joueurs.get(index).montrerCarte(lieu, arme, meurtrier);
+                //c = joueurs.get(index).montrerCarte(lieu, arme, meurtrier);
                
                 // On augmente le nombre de joueurs auquel on a posé la question
                 nbJoueurDemande++;
