@@ -38,7 +38,7 @@ public class JoueurHumain extends Joueur {
      * @return
      */
     @Override
-    public Carte montrerCarte(String suspect, String arme, String lieu) {
+    public Carte montrerCarte(Suspect suspect, Arme arme, Lieu lieu) {
         LinkedList<Carte> card = new LinkedList<Carte>();
         if(main.contains(lieu))
             card.add(lieu);
@@ -210,7 +210,7 @@ public class JoueurHumain extends Joueur {
      * Permet d'envoyer un message aux client local afin d'effectuer un traitement
      * Pour obtenir le retour, utiliser la fonction receive
      * @param message Le message à faire parvenir au client local
-     * @see receive
+     * @see receive()
      */
     @Override
     public void send(String message) throws IOException {
@@ -242,11 +242,19 @@ public class JoueurHumain extends Joueur {
         }
         else if (splitted[0].equals("ask") && splitted.length == 4)
         {
-            
+        	if (suspects.contains(splitted[1]) && armes.contains(splitted[2]) && lieux.contains())
+        	{
+            	Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3])));
+            	
+            	if (card != null)
+            		buffer = card.toString();
+            	else
+            		buffer = null;
+        	}
         }
         else if (splitted[0].equals("info"))
         {
-            
+        	
         }
         else if (splitted[0].equals("end"))
         {
