@@ -244,10 +244,9 @@ public class JoueurHumain extends Joueur {
             {
                 Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3]));
             	
+                buffer = "respond";
                 if (card != null)
-                    buffer = card.toString();
-                else
-                    buffer = null;
+                    buffer += " " + card.toString();
             }
         }
         else if (splitted[0].equals("info"))
