@@ -130,10 +130,4 @@ public class JoueurReseauClient extends JoueurHumain{
             System.exit(0);
         }             
     }
-    
-    public void respond(String nom_carte) throws IOException
-        {
-            if(nom_carte.equals("")) send("");
-            send(nom_carte);
-        }
 }
