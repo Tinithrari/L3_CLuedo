@@ -130,4 +130,13 @@ public class JoueurReseauClient extends JoueurHumain{
             System.exit(0);
         }             
     }
+    
+    public void play() throws IOException
+    {
+        while (true)
+        {
+            String message = this.receive();
+            this.gererRequete(message);
+        }
+    }
 }

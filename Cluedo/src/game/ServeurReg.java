@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author Tinithrari
  */
-public class ServeurReg extends Thread{
+public class ServeurReg{
     
     private ServerSocket sSocket;
     private LinkedList<Joueur> clients;
@@ -40,7 +40,10 @@ public class ServeurReg extends Thread{
         }
     }
 
-    @Override
+    public ServeurReg() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void run() 
     {    
         while (nb_connection < max_connection)
@@ -66,6 +69,8 @@ public class ServeurReg extends Thread{
                             {
                                 j.send("ack " + this.getNb_connection());
                                 this.setNb_connection(this.getNb_connection() + 1);
+                                System.out.println(nom + " is connected");
+                                clients.add(j);
                             }
                             catch (IOException e)
                             {

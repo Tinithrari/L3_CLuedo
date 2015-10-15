@@ -68,16 +68,7 @@ public class CluedoSolo {
     
     public static void main(String[] args) {
         // TODO code application logic here
-        CluedoSolo game = new CluedoSolo();
-        Scanner sc = new Scanner(System.in);
-        int nbJoueur = 0;
         
-        while (nbJoueur < 3 || nbJoueur > 6)
-        {
-            System.out.println("How many players ? (between 3 and 6)");
-            nbJoueur = sc.nextInt();
-        }
-        game.run(nbJoueur);
     }
     
 }

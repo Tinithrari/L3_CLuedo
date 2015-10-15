@@ -85,7 +85,7 @@ public class Jeu {
     	int iterator = 0;
         ArrayList<StringBuffer> liste_cartes = new ArrayList<StringBuffer>();
         String noms_joueurs = "";
-        
+
         for (int i = 0; i < joueurs.size(); i++)
             liste_cartes.add(new StringBuffer());
         
