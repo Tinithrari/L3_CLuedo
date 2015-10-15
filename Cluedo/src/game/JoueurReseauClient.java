@@ -63,4 +63,77 @@ public class JoueurReseauClient extends JoueurHumain{
         String message = reader.readLine();
         return message;
     }
+    
+    public void gererRequete(String requete) throws IOException
+    {
+        String[] splitted = requete.split(" ");
+        
+        if (splitted[0].equals("start") && splitted.length == 3)
+        {
+            commencer(splitted);
+        }
+        
+        else if (splitted[0].equals("play") && splitted.length == 1)
+        {
+            this.send(commande());
+        }
+        
+        else if (splitted[0].equals("error") && splitted.length >= 2)
+        {
+            erreur(splitted);
+            socket.close();
+            System.exit(1);
+        }
+        
+        else if (splitted[0].equals("move") )
+        {
+            int numero_joueur = Integer.parseInt(splitted[2]);
+            
+            System.out.print(joueurs[numero_joueur] + " :");
+            
+            for (int i = 3; i < splitted.length; i++)
+            	System.out.print(" " + splitted[i]);
+            
+            System.out.print("\n");
+        }
+        
+        else if (splitted[0].equals("ask") && splitted.length == 4)
+        {
+            String buffer = "respond";
+            
+            if (suspects.contains(splitted[1]) && armes.contains(splitted[2]) && lieux.contains(splitted[3]))
+            {
+                Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3]));
+                
+                if (card != null)
+                    send(buffer+" "+card.toString());
+                else send(buffer);
+            }
+        }
+        
+        else if (splitted[0].equals("info"))
+        {
+            String affichage = requete.substring(splitted[0].length());
+            System.out.println(affichage);
+        }
+        
+        else if (splitted[0].equals("end"))
+        {
+            if (splitted.length == 1)
+                System.out.println("Nobody has won");
+            else
+            {
+                int num_joueur = Integer.parseInt(splitted[1]);
+                System.out.println(joueurs[num_joueur] + " has won the game");
+            }
+            socket.close();
+            System.exit(0);
+        }             
+    }
+    
+    public void respond(String nom_carte) throws IOException
+        {
+            if(nom_carte.equals("")) send("");
+            send(nom_carte);
+        }
 }

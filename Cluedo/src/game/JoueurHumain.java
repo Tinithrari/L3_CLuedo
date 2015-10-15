@@ -16,7 +16,7 @@ public class JoueurHumain extends Joueur {
     public static LinkedList<String> lieux;
     
     private String buffer;
-    private String[] joueurs;
+    protected String[] joueurs;
     
     /**
      * Créé un joueur humain
