@@ -1,4 +1,4 @@
-CandleStick
+Candlestick
 Dagger
 LeadPipe
 Revolver

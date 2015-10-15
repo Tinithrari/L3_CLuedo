@@ -1,5 +1,5 @@
 Kitchen
-Ballroom
+BallRoom
 Conservatory
 DiningRoom
 BillardRoom
