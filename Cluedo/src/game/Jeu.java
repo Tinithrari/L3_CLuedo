@@ -83,17 +83,17 @@ public class Jeu {
     private void distribuer()
     {
     	int iterator = 0;
-        ArrayList<String> liste_cartes = new ArrayList<String>();
+        ArrayList<StringBuffer> liste_cartes = new ArrayList<StringBuffer>();
         String noms_joueurs = "";
         
         for (int i = 0; i < joueurs.size(); i++)
-            liste_cartes.add(new String(""));
+            liste_cartes.add(new StringBuffer());
         
         while (! paquet.empty())
         {
             if (liste_cartes.get(iterator).length() != 0)
-                liste_cartes.add(iterator, liste_cartes.get(iterator).concat(","));
-            liste_cartes.add(iterator, liste_cartes.get(iterator).concat(paquet.pop().getNom()));
+                liste_cartes.get(iterator).append(",");
+            liste_cartes.get(iterator).append(paquet.pop());
             iterator++;
             iterator %= joueurs.size();
         }
@@ -107,7 +107,7 @@ public class Jeu {
         
         for (int i = 0; i < joueurs.size(); i++)
                 try {
-                    joueurs.get(i).send( "start " + noms_joueurs + " " + liste_cartes.get(i));
+                    joueurs.get(i).send( "start " + noms_joueurs + " " + new String(liste_cartes.get(i)));
                 } catch (IOException ex) {
                     joueurs.remove(i);
                     for (Joueur j : joueurs)
@@ -330,7 +330,7 @@ public class Jeu {
                 if (splittedCommand[1].equals("suggest")) 
                 {
                     for (Joueur joueur : joueurs)
-                        joueur.send("move suggest " + joueur.getNum_joueur() + " " +suspect.toString() + " " + arme.getNom() + " " + lieu.getNom());
+                        joueur.send("move suggest " + j.getNum_joueur() + " " +suspect.toString() + " " + arme.getNom() + " " + lieu.getNom());
                     suggerer(j, suspect, lieu, arme);
                     return true;
                 } 

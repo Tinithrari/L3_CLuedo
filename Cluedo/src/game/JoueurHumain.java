@@ -229,11 +229,11 @@ public class JoueurHumain extends Joueur {
         }
         else if (splitted[0].equals("move") )
         {
-            int numero_joueur = Integer.parseInt(splitted[1]);
+            int numero_joueur = Integer.parseInt(splitted[2]);
             
             System.out.print(joueurs[numero_joueur] + " :");
             
-            for (int i = 2; i < splitted.length; i++)
+            for (int i = 3; i < splitted.length; i++)
             	System.out.print(" " + splitted[i]);
             
             System.out.print("\n");
@@ -251,7 +251,7 @@ public class JoueurHumain extends Joueur {
         }
         else if (splitted[0].equals("info"))
         {
-            String affichage = message.substring(splitted[0].length() - 1);
+            String affichage = message.substring(splitted[0].length());
             System.out.println(affichage);
         }
         else if (splitted[0].equals("end"))
@@ -316,6 +316,7 @@ public class JoueurHumain extends Joueur {
         
         while (commande == null)
         {
+            System.out.println("Entrer une commande");
             commande = sc.nextLine();
             
             if (commande.equals("help"))

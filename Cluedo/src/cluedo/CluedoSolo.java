@@ -3,8 +3,11 @@ package cluedo;
 import game.Jeu;
 import game.Joueur;
 import game.JoueurHumain;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Représente l'interface de lancement du cluedo
@@ -24,17 +27,30 @@ public class CluedoSolo {
         LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
         int iterator = 0;
         
-        for (numeroJoueur = 1; numeroJoueur <= nbJoueur; numeroJoueur++)
-            joueurs.add(new JoueurHumain("Player " + numeroJoueur));
+        for (numeroJoueur = 0; numeroJoueur < nbJoueur; numeroJoueur++)
+        {
+            joueurs.add(new JoueurHumain("Player" + numeroJoueur));
+            joueurs.get(numeroJoueur).setNum_joueur(numeroJoueur);
+        }
         
         jeu = new Jeu(joueurs);
         
         while (! (jeu.estGagne() || partiePerdu(joueurs) ) )
         {
-            jeu.effectuerTour(joueurs.get(iterator));
-            
-            iterator++;
-            iterator %= joueurs.size();
+            try {
+                jeu.effectuerTour(joueurs.get(iterator));
+                
+                iterator++;
+                iterator %= joueurs.size();
+            } catch (IOException ex) {
+                for (Joueur j : joueurs)
+                    try {
+                        j.send("error other");
+                    } catch (IOException ex1) {
+                        System.exit(1);
+                    }
+                System.exit(1);
+            }
         }
         if (partiePerdu(joueurs))
             System.out.println("Nobody has won the game");
