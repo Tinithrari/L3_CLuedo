@@ -343,6 +343,7 @@ public class JoueurHumain extends Joueur {
         {
             int num_joueur = Integer.parseInt(splitted[2]);
             System.err.println("The player " + joueurs[num_joueur] + " has leave the game, disconnecting...");
+            System.exit(1);
         }
         else if (splitted[1].equals("invalid"))
         {
@@ -360,6 +361,7 @@ public class JoueurHumain extends Joueur {
                 System.err.print(" " + splitted[i]);
             
             System.err.print("\n");
+            System.exit(1);
         }
     }
 }

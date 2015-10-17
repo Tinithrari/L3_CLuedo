@@ -68,6 +68,7 @@ public class ServeurReg{
                             try 
                             {
                                 j.send("ack " + this.getNb_connection());
+                                j.setNum_joueur(nb_connection);
                                 this.setNb_connection(this.getNb_connection() + 1);
                                 System.out.println(nom + " is connected");
                                 clients.add(j);

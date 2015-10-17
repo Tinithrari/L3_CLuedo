@@ -161,14 +161,14 @@ public class Jeu {
         int index = joueurs.indexOf(joueur);
         String[] splitted = null;
         String c = null;
-        
-        // Passe au joueur suivant
-        index++;
-        index %= joueurs.size();
 
         // Tant que le joueur ne dit pas qu'il n'a pas de carte correspondant à la suggestion et que l'on a pas demandé à tout les joueurs
         while ( (c == null && nbJoueurDemande != joueurs.size() - 1))
         {
+            // Passe au joueur suivant
+            index++;
+            index %= joueurs.size();
+            
             if(joueurs.get(index) != joueur)
             {
                 joueurs.get(index).send("ask " + meurtrier.getNom() + " " + arme.getNom() + " " + lieu.getNom());
@@ -183,13 +183,10 @@ public class Jeu {
                 for (Joueur j : joueurs)
                     j.send("info noshow " + joueurs.get(index).getNum_joueur() + " " + joueur.getNum_joueur());
                 c = null;
+                
             }
             else
                 c = splitted[1];
-            
-            // On passe aux joueurs suivant
-            index++;
-            index %= joueurs.size();
         }
         if (c != null)
             for (Joueur j : joueurs)
