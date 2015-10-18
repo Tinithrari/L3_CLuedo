@@ -68,22 +68,22 @@ public class JoueurReseauClient extends JoueurHumain{
     {
         String[] splitted = requete.split(" ");
         
-        if (splitted.length == 3 && splitted[0].equals("start"))
+        if (splitted[0].equals("start") && splitted.length == 3)
         {
             commencer(splitted);
         }
         
-        else if (splitted.length == 1 && splitted[0].equals("play"))
+        else if (splitted[0].equals("play") && splitted.length == 1)
         {
             this.send(commande());
         }
         
-        else if (splitted.length >= 2 && splitted[0].equals("error"))
+        else if (splitted[0].equals("error") && splitted.length >= 2)
         {
             erreur(splitted);
         }
         
-        else if (splitted.length == 6 && splitted[0].equals("move") )
+        else if (splitted[0].equals("move") && splitted.length == 6)
         {
             int numero_joueur = Integer.parseInt(splitted[2]);
             
@@ -95,7 +95,7 @@ public class JoueurReseauClient extends JoueurHumain{
             System.out.print("\n");
         }
         
-        else if (splitted.length == 4 && splitted[0].equals("ask"))
+        else if (splitted[0].equals("ask") && splitted.length == 4)
         {
             String buffer = "respond";
             
@@ -109,13 +109,13 @@ public class JoueurReseauClient extends JoueurHumain{
             }
         }
         
-        else if (splitted.length >= 2 && splitted[0].equals("info"))
+        else if (splitted[0].equals("info"))
         {
             String affichage = requete.substring(splitted[0].length());
             System.out.println(affichage);
         }
         
-        else if (splitted.length >= 1 && splitted[0].equals("end"))
+        else if (splitted[0].equals("end"))
         {
             if (splitted.length == 1)
                 System.out.println("Nobody has won");
