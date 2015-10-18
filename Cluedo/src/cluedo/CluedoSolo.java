@@ -66,9 +66,4 @@ public class CluedoSolo {
         return partiePerdu;
     }
     
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-    }
-    
 }
