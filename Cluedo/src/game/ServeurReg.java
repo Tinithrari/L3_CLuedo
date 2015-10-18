@@ -22,7 +22,7 @@ public class ServeurReg{
     public ServeurReg(int port, int max_connection, boolean embedded) throws IOException
     {
         this.sSocket = new ServerSocket(port);
-        this.sSocket.setSoTimeout(250);
+        this.sSocket.setSoTimeout(2500);
         this.clients = new LinkedList<Joueur>();
         this.max_connection = max_connection;
         if (! embedded)
