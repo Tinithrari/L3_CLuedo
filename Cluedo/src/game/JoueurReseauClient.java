@@ -74,7 +74,7 @@ public class JoueurReseauClient extends JoueurHumain{
             commencer(splitted);
         }
         
-        else if (splitted[0].equals("play") && splitted.length == 1)
+        else if (splitted[0].equals("play"))
         {
             this.send(commande());
         }
