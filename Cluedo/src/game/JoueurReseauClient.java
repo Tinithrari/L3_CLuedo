@@ -18,6 +18,7 @@ public class JoueurReseauClient extends JoueurHumain{
     {
         super(nom);
         this.socket = socket;
+        this.socket.setSoTimeout(0);
         send("register " + nom);
         
         String request = receive();
