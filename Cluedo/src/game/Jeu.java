@@ -189,11 +189,14 @@ public class Jeu {
                 c = splitted[1];
         }
         if (c != null)
+        {
             for (Joueur j : joueurs)
             {
-                j.send("info show " + joueurs.get(index).getNum_joueur() + " " + joueur.getNum_joueur());
-                j.send("info respond " + joueurs.get(index).getNum_joueur() + " " + c);
+                j.send("info show " + joueurs.get(index).getNum_joueur() + " " + joueur.getNum_joueur());                
             }
+            joueurs.get(index).send("info respond " + joueurs.get(index).getNum_joueur() + " " + c);
+            joueur.send("info respond " + joueurs.get(index).getNum_joueur() + " " + c);
+        }
     }
 
     /**
