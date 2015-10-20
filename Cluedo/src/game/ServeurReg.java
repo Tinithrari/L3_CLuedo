@@ -51,11 +51,6 @@ public class ServeurReg{
         while (nb_connection < max_connection)
         {
             Socket s = new Socket();
-            try {
-                s.setSoTimeout(0);
-            } catch (SocketException ex) {
-                Logger.getLogger(ServeurReg.class.getName()).log(Level.SEVERE, null, ex);
-            }
             try 
             {
                 s = sSocket.accept();

@@ -10,7 +10,7 @@ import java.net.Socket;
  * Classe permettant au client de communiquer avec le serveur
  * @author Tinithrari
  */
-public class JoueurReseauClient extends JoueurHumain{
+public final class JoueurReseauClient extends JoueurHumain{
     
     private Socket socket;
     
@@ -18,7 +18,6 @@ public class JoueurReseauClient extends JoueurHumain{
     {
         super(nom);
         this.socket = socket;
-        this.socket.setSoTimeout(0);
         send("register " + nom);
         
         String request = receive();
