@@ -65,14 +65,6 @@ public class JoueurHumain extends Joueur {
         return card.get(choix-1);
     }
 
-    @Override
-    public void afficherMessage(String message) {
-        if (message == null)
-            throw new NullPointerException("A message must be specified");
-        
-        System.out.println(message);
-    }
-
     /**
      * Affiche l'aide sur la sortie standard
      */

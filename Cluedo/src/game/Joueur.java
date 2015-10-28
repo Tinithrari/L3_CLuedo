@@ -92,10 +92,7 @@ public abstract class Joueur {
      * Demande une commande au joueur
      * @return la commande du joueur
      */
-    public abstract String commande();
-    
-    public abstract void afficherMessage(String message);
-    
+    public abstract String commande();    
     public abstract void send(String message) throws IOException;
     public abstract String receive() throws IOException;
     public abstract void erreur(String[] splitted);

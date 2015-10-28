@@ -19,12 +19,6 @@ public class JoueurReseauServeur extends Joueur{
         super(nom);
         this.socket = socket;
     }
-
-    @Override
-    public void afficherMessage(String message) 
-    {
-        
-    }
     
     @Override
     public void send(String message) throws IOException{

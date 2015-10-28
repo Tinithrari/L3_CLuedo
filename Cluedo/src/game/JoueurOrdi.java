@@ -3,30 +3,52 @@ package game;
 
 import java.io.IOException;
 import java.util.*;
-
 /**
  * 
  */
 public class JoueurOrdi extends Joueur {
-
+	
+	private HashMap<String, Float> croyanceArme;
+	private HashMap<String, Float> croyanceLieu;
+	private HashMap<String, Float> croyanceSuspect;
+	
+	private HashMap<Integer, Queue<String>> memoireSuggestion;
+	
     /**
      * 
      */
-    public JoueurOrdi(String nom) {
+    public JoueurOrdi(String nom) 
+    {
         super(nom);
+       // Exemle usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
+    }
+    
+    private void reactionSuggestion(String suggestion)
+    {
+    	
+    }
+    
+    private void traitementRespond(String nomCarte)
+    {
+    	
     }
 
+    private void reflechir()
+    {
+    	
+    }
+    
+    private String eliminerCarte()
+    {
+    	return null;
+    }
+    
     /**
      * @return
      */
     public String commande() {
         // TODO implement here
         return "";
-    }
-    
-    @Override
-    public void afficherMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

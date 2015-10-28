@@ -33,12 +33,6 @@ public final class JoueurReseauClient extends JoueurHumain{
     }
 
     @Override
-    public void afficherMessage(String message) 
-    {
-        super.afficherMessage(message); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String commande() 
     {
         return super.commande(); //To change body of generated methods, choose Tools | Templates.
