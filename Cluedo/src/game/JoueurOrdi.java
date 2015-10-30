@@ -16,9 +16,9 @@ public class JoueurOrdi extends Joueur {
 	private HashMap<String, Float> croyanceLieu;
 	private HashMap<String, Float> croyanceSuspect;
         
-    private static LinkedList<String> armes;
-    private static LinkedList<String> suspects;
-    private static LinkedList<String> lieux;
+        private static LinkedList<String> armes;
+        private static LinkedList<String> suspects;
+        private static LinkedList<String> lieux;
 	
 	private HashMap<Integer, Queue<String>> memoireSuggestion;
 	
@@ -87,21 +87,25 @@ public class JoueurOrdi extends Joueur {
         loadLieu();
         loadSuspect();
         
+        initHashMap(croyanceArme);
+        initHashMap(croyanceLieu);
+        initHashMap(croyanceSuspect);
+        
         for (String c : cartes) {
             if (suspects.contains(c)) 
             {
                 this.addCard(new Suspect(c));
-                croyanceSuspect.replace(c, 0.f);
+                changeValue(croyanceSuspect,c,0f);
             } 
             else if (armes.contains(c)) 
             {
                 this.addCard(new Arme(c));
-                croyanceArme.replace(c, 0.f);
+                changeValue(croyanceArme,c,0f);
             } 
             else 
             {
                 this.addCard(new Lieu(c));
-                croyanceLieu.replace(c, 0.f);
+                changeValue(croyanceLieu,c,0f);
             }
         }
     }
@@ -178,5 +182,48 @@ public class JoueurOrdi extends Joueur {
         }
     }
     
+    private void initHashMap(HashMap<String,Float> hashmap)
+    {
+        float pourcentage;
+        if(hashmap == null)
+            return;
+        
+        if(hashmap.size()==0)
+            return;
+        
+        pourcentage = 1/hashmap.size();
+        
+        for(String s : hashmap.keySet())
+        {
+            hashmap.replace(s,pourcentage);
+        }
+    }
     
+    /**
+     * 
+     * @param hashmap
+     * @param key
+     * @param valeur la valeur que va prendre l'entree key
+     */
+    private void changeValue(HashMap<String,Float> hashmap,String key,float valeur)
+    {
+        float difference;
+                
+        if(hashmap == null)
+            return;
+        if(!hashmap.containsKey(key))
+            return;
+        
+        difference = hashmap.get(key) - valeur;
+        
+        hashmap.replace(key,valeur);
+        
+        for(String s : hashmap.keySet())
+        {
+            float tampon = hashmap.get(s);
+            
+            if(!s.equals(key))
+                hashmap.replace(key, tampon + difference);
+        }
+    }
 }
