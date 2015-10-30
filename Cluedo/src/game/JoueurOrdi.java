@@ -16,9 +16,9 @@ public class JoueurOrdi extends Joueur {
 	private HashMap<String, Float> croyanceLieu;
 	private HashMap<String, Float> croyanceSuspect;
         
-        private static LinkedList<String> armes;
-        private static LinkedList<String> suspects;
-        private static LinkedList<String> lieux;
+    private static LinkedList<String> armes;
+    private static LinkedList<String> suspects;
+    private static LinkedList<String> lieux;
 	
 	private HashMap<Integer, Queue<String>> memoireSuggestion;
 	
