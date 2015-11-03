@@ -19,6 +19,8 @@ public class JoueurOrdi extends Joueur {
         private static LinkedList<String> armes;
         private static LinkedList<String> suspects;
         private static LinkedList<String> lieux;
+        
+        private boolean attentionRequisePourShow;
 	
 	private HashMap<Integer, Queue<String>> memoireSuggestion;
 	
@@ -31,6 +33,7 @@ public class JoueurOrdi extends Joueur {
         croyanceArme = new HashMap<String, Float>();
         croyanceLieu = new HashMap<String, Float>();
         croyanceSuspect = new HashMap<String, Float>();
+        attentionRequisePourShow = false;
        // Exemle usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
     }
     
@@ -66,6 +69,56 @@ public class JoueurOrdi extends Joueur {
     public void send(String message) throws IOException {
         String[] splitted = message.split(" ");
         
+        if (splitted[0].equals("move"))
+        {
+            String requete = splitted[3] + " " + splitted[4] + " " + splitted[5];
+            
+            Queue memJoueur = memoireSuggestion.get( Integer.parseInt(splitted[2]) );
+            
+            if (! memJoueur.isEmpty())
+            {
+                
+                // Premier cas : Deux des trois cartes sont connues par l'IA
+                if ( (main.contains(splitted[3]) && main.contains(splitted[4]))
+                        || (main.contains(splitted[3]) && main.contains(splitted[5]))
+                        || (main.contains(splitted[4]) && main.contains(splitted[5])))
+                    attentionRequisePourShow = true;
+                else
+                {
+                    boolean un = false, deux = false, trois = false;
+                    // Second cas : Carte inconnu
+                    // Vérifie si la requête n'est pas identique à l'une des précédentes et si elle contient au moins une des trois cartes
+                    for (String requetePrecedente : (Queue<String>)memJoueur)
+                    if (! (requetePrecedente.contains(splitted[3]) && requetePrecedente.contains(splitted[4]) && requetePrecedente.contains(splitted[5])) )
+                        if ( requetePrecedente.contains(splitted[3]) || requetePrecedente.contains(splitted[4]) || requetePrecedente.contains(splitted[5]) )
+                        {
+                            if (! requetePrecedente.contains(splitted[3]) && croyanceSuspect.containsKey(splitted[3]) && !un)
+                            {
+                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) - (1 / (float) croyanceSuspect.size()));
+                                un = true;
+                            }
+                            if (! requetePrecedente.contains(splitted[4])  && croyanceArme.containsKey(splitted[4]) && !deux)
+                            {
+                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) - (1 / (float) croyanceArme.size()));
+                                deux = true;
+                            }
+                            if (! requetePrecedente.contains(splitted[5]) && croyanceLieu.containsKey(splitted[5]) && !trois)
+                            {
+                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) - (1 / (float) croyanceLieu.size()));
+                                trois = true;
+                            }
+                            if (un && deux && trois)
+                                return;
+                        }
+                    if (! un)
+                        changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1 / (float) croyanceSuspect.size()));
+                    if (! deux)
+                        changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1 / (float) croyanceArme.size()));
+                    if (! trois)
+                        changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1 / (float) croyanceLieu.size()));
+                }
+            }
+        }
         if (splitted[0].equals("respond"))
         {
             String carte = splitted[1];
