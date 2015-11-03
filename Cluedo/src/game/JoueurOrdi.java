@@ -64,7 +64,19 @@ public class JoueurOrdi extends Joueur {
 
     @Override
     public void send(String message) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] splitted = message.split(" ");
+        
+        if (splitted[0].equals("respond"))
+        {
+            String carte = splitted[1];
+            
+            if (croyanceArme.containsKey(carte))
+                removeEntry(croyanceArme, carte);
+            else if (croyanceLieu.containsKey(carte))
+                removeEntry(croyanceLieu, carte);
+            else
+                removeEntry(croyanceLieu, carte);
+        }
     }
 
     @Override
