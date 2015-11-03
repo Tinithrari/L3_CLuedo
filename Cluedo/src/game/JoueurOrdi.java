@@ -91,21 +91,22 @@ public class JoueurOrdi extends Joueur {
         initHashMap(croyanceLieu);
         initHashMap(croyanceSuspect);
         
-        for (String c : cartes) {
+        for (String c : cartes) 
+        {
             if (suspects.contains(c)) 
             {
                 this.addCard(new Suspect(c));
-                changeValue(croyanceSuspect,c,0f);
+                removeEntry(croyanceSuspect,c);
             } 
             else if (armes.contains(c)) 
             {
                 this.addCard(new Arme(c));
-                changeValue(croyanceArme,c,0f);
+                removeEntry(croyanceArme,c);
             } 
             else 
             {
                 this.addCard(new Lieu(c));
-                changeValue(croyanceLieu,c,0f);
+                removeEntry(croyanceLieu,c);
             }
         }
     }
@@ -199,6 +200,15 @@ public class JoueurOrdi extends Joueur {
         }
     }
     
+    private void removeEntry(HashMap<String,Float> hashmap,String key)
+    {
+        if(hashmap == null && !hashmap.containsKey(key))
+            return;
+        
+        changeValue(hashmap, key, 0f);
+        hashmap.remove(key);
+    }
+    
     /**
      * 
      * @param hashmap
@@ -209,12 +219,11 @@ public class JoueurOrdi extends Joueur {
     {
         float difference;
                 
-        if(hashmap == null)
-            return;
-        if(!hashmap.containsKey(key))
+        if(hashmap == null && !hashmap.containsKey(key))
             return;
         
         difference = hashmap.get(key) - valeur;
+        valeur /= hashmap.size() - 1;
         
         hashmap.replace(key,valeur);
         
