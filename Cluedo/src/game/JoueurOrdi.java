@@ -92,30 +92,24 @@ public class JoueurOrdi extends Joueur {
                     if (! (requetePrecedente.contains(splitted[3]) && requetePrecedente.contains(splitted[4]) && requetePrecedente.contains(splitted[5])) )
                         if ( requetePrecedente.contains(splitted[3]) || requetePrecedente.contains(splitted[4]) || requetePrecedente.contains(splitted[5]) )
                         {
-                            if (! requetePrecedente.contains(splitted[3]) && croyanceSuspect.containsKey(splitted[3]) && !un)
+                            if (requetePrecedente.contains(splitted[3]) && croyanceSuspect.containsKey(splitted[3]) && !un)
                             {
-                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) - (1 / (float) croyanceSuspect.size()));
+                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1 / (float) croyanceSuspect.size()));
                                 un = true;
                             }
-                            if (! requetePrecedente.contains(splitted[4])  && croyanceArme.containsKey(splitted[4]) && !deux)
+                            if (requetePrecedente.contains(splitted[4])  && croyanceArme.containsKey(splitted[4]) && !deux)
                             {
-                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) - (1 / (float) croyanceArme.size()));
+                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1 / (float) croyanceArme.size()));
                                 deux = true;
                             }
                             if (! requetePrecedente.contains(splitted[5]) && croyanceLieu.containsKey(splitted[5]) && !trois)
                             {
-                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) - (1 / (float) croyanceLieu.size()));
+                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1 / (float) croyanceLieu.size()));
                                 trois = true;
                             }
                             if (un && deux && trois)
                                 return;
                         }
-                    if (! un)
-                        changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1 / (float) croyanceSuspect.size()));
-                    if (! deux)
-                        changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1 / (float) croyanceArme.size()));
-                    if (! trois)
-                        changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1 / (float) croyanceLieu.size()));
                 }
             }
         }
