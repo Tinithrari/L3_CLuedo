@@ -299,7 +299,6 @@ public class JoueurHumain extends Joueur {
      * Demande une commande aux joueurs
      * @return la commande saisie par le joueur
      */
-    @Override
     public String commande() 
     {
         String commande = null;
