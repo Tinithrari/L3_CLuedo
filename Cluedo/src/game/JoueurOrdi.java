@@ -87,8 +87,6 @@ public class JoueurOrdi extends Joueur {
         }
         if (splitted[0].equals("respond"))
         {
-            if (attentionRequisePourShow)
-            {
                 String carte = splitted[1];
             
                 if (croyanceArme.containsKey(carte))
@@ -97,7 +95,19 @@ public class JoueurOrdi extends Joueur {
                     removeEntry(croyanceLieu, carte);
                 else
                     removeEntry(croyanceLieu, carte);
-            }
+        }
+        if (splitted[0].equals("info") && splitted[1].equals("show") && attentionRequisePourShow)
+        {
+            LinkedList<String> l = (LinkedList<String>) memoireSuggestion.get(Integer.parseInt(splitted[3]));
+            String[] requete_splitted = l.getLast().split(" ");
+            
+            if (main.contains(requete_splitted[1]) && main.contains(requete_splitted[2]))
+                removeEntry(croyanceSuspect, requete_splitted[0]);
+            if (main.contains(requete_splitted[0]) && main.contains(requete_splitted[2]))
+                removeEntry(croyanceArme, requete_splitted[1]);
+            else
+                removeEntry(croyanceLieu, requete_splitted[2]);
+            attentionRequisePourShow = false;
         }
     }
 
