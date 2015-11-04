@@ -87,14 +87,17 @@ public class JoueurOrdi extends Joueur {
         }
         if (splitted[0].equals("respond"))
         {
-            String carte = splitted[1];
+            if (attentionRequisePourShow)
+            {
+                String carte = splitted[1];
             
-            if (croyanceArme.containsKey(carte))
-                removeEntry(croyanceArme, carte);
-            else if (croyanceLieu.containsKey(carte))
-                removeEntry(croyanceLieu, carte);
-            else
-                removeEntry(croyanceLieu, carte);
+                if (croyanceArme.containsKey(carte))
+                    removeEntry(croyanceArme, carte);
+                else if (croyanceLieu.containsKey(carte))
+                    removeEntry(croyanceLieu, carte);
+                else
+                    removeEntry(croyanceLieu, carte);
+            }
         }
     }
 
