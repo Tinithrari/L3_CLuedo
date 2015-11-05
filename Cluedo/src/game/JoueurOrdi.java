@@ -15,6 +15,8 @@ public class JoueurOrdi extends Joueur {
 	private HashMap<String, Float> croyanceArme;
 	private HashMap<String, Float> croyanceLieu;
 	private HashMap<String, Float> croyanceSuspect;
+	
+	private String buffer;
         
         private static LinkedList<String> armes;
         private static LinkedList<String> suspects;
@@ -34,7 +36,8 @@ public class JoueurOrdi extends Joueur {
         croyanceLieu = new HashMap<String, Float>();
         croyanceSuspect = new HashMap<String, Float>();
         attentionRequisePourShow = false;
-       // Exemle usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
+        buffer = "";
+       // Exemple usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
     }
 
     @Override
@@ -109,6 +112,69 @@ public class JoueurOrdi extends Joueur {
                 removeEntry(croyanceLieu, requete_splitted[2]);
             attentionRequisePourShow = false;
         }
+        if (splitted[0].equals("play"))
+        {
+        	// On recupere le max
+        	float maxArme = Collections.max(croyanceArme.values());
+        	float maxSuspect = Collections.max(croyanceSuspect.values());
+        	float maxLieu = Collections.max(croyanceLieu.values());
+        	
+        	// On recupere la cle associee au max
+        	String arme = getKeyFromValue(croyanceArme, maxArme);
+        	String suspect = getKeyFromValue(croyanceSuspect, maxSuspect);
+        	String lieu = getKeyFromValue(croyanceLieu, maxLieu);
+        	
+        	String action = "";
+        	
+        	// Si les croyances sont sup a 75%, accuse, sinon suggestion
+        	if(maxArme >= 0.75 && maxSuspect >= 0.75 && maxLieu >= 0.75)
+        		action = "accuse ";
+        	else
+        		action = "suggest ";
+        	
+        	action += suspect + " " + arme + " " + lieu;
+        	
+        	// On place l'action dans le buffer
+        	buffer = action;
+        }
+        
+        if (splitted[0].equals("ask"))
+        {
+        	String suspectDemande = splitted[1];
+        	String armeDemande = splitted[2];
+        	String lieuDemande = splitted[3];
+        	
+        	// On verifie les cartes que l'on a
+        	LinkedList <String> possede = new LinkedList();
+        	if (main.contains(suspectDemande))
+        		possede.add(suspectDemande);
+        	if (main.contains(armeDemande))
+        		possede.add(armeDemande);
+        	if (main.contains(lieuDemande))
+        		possede.add(lieuDemande);
+        	
+        	// On regarde si possede est vide
+        	if (possede.isEmpty())
+        		buffer = "respond";
+        	//Sinon on melange les cartes
+        	else
+        	{
+        		Collections.shuffle(possede);
+        		buffer = "respond " + possede.getFirst();
+        	}
+        }
+    }
+    
+    private String getKeyFromValue(HashMap <String,Float> hashmap, float value)
+    {
+    	if (hashmap == null && hashmap.containsValue(value))
+    		return null;
+    	for(String key : hashmap.keySet())
+    	{
+    		if(hashmap.get(key) == value)
+    			return key;
+    	}
+    	return null;
     }
 
     @Override
