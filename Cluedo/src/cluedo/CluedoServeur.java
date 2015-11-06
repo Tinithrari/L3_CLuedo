@@ -39,7 +39,7 @@ public class CluedoServeur
             
             while (nbIA < 0 || nbIA > nbJoueur - 1)
             {
-            	System.out.println("How many IA ? (between 0 and " + nbJoueur + ")");
+            	System.out.println("How many IA ? (between 0 and " + (nbJoueur - 1) + ")");
                 nbIA = sc.nextInt();
             }
             	

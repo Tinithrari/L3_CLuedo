@@ -110,7 +110,7 @@ public final class JoueurReseauClient extends JoueurHumain{
         {
             String buffer = "respond";
             
-            if (suspects.contains(splitted[1]) && armes.contains(splitted[2]) && lieux.contains(splitted[3]))
+            if (suspects.contains(splitted[1]) || armes.contains(splitted[2]) || lieux.contains(splitted[3]))
             {
                 Carte card = montrerCarte(new Suspect(splitted[1]), new Arme(splitted[2]), new Lieu(splitted[3]));
                 

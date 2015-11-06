@@ -37,6 +37,7 @@ public class JoueurOrdi extends Joueur {
         croyanceArme = new HashMap<String, Float>();
         croyanceLieu = new HashMap<String, Float>();
         croyanceSuspect = new HashMap<String, Float>();
+        memoireSuggestion = new HashMap<Integer, Queue<String>>();
         attentionRequisePourShow = false;
         buffer = "";
        // Exemple usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
@@ -51,6 +52,10 @@ public class JoueurOrdi extends Joueur {
     	
         String[] splitted = message.split(" ");
         
+        if (splitted[0].equals("start"))
+        {
+        	commencer(splitted);
+        }
         if (splitted[0].equals("move"))
         {
             String requete = splitted[3] + " " + splitted[4] + " " + splitted[5];
@@ -131,13 +136,13 @@ public class JoueurOrdi extends Joueur {
         	String suspect = getKeyFromValue(croyanceSuspect, maxSuspect);
         	String lieu = getKeyFromValue(croyanceLieu, maxLieu);
         	
-        	String action = "";
+        	String action = "move ";
         	
         	// Si les croyances sont sup a 75%, accuse, sinon suggestion
         	if(maxArme >= 0.75 && maxSuspect >= 0.75 && maxLieu >= 0.75)
-        		action = "accuse ";
+        		action += "accuse ";
         	else
-        		action = "suggest ";
+        		action += "suggest ";
         	
         	action += suspect + " " + arme + " " + lieu;
         	
@@ -225,6 +230,11 @@ public class JoueurOrdi extends Joueur {
                 this.addCard(new Lieu(c));
                 removeEntry(croyanceLieu,c);
             }
+        }
+        
+        for (int i = 0; i < joueurs.length; i++)
+        {
+        	memoireSuggestion.put(i, new LinkedList<String>());
         }
     }
     
