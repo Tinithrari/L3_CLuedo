@@ -7,6 +7,7 @@ package cluedo;
 
 import game.Jeu;
 import game.Joueur;
+import game.JoueurOrdi;
 import game.ServeurReg;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public class CluedoServeur
     public CluedoServeur(boolean embedded) 
     {
         try {
-            int nbJoueur = 0;
+            int nbJoueur = 0, nbIA= -1;
             Scanner sc = new Scanner(System.in);
             
             while (nbJoueur < 3 || nbJoueur > 6)
@@ -36,7 +37,19 @@ public class CluedoServeur
                 nbJoueur = sc.nextInt();
             }
             
+            while (nbIA < 0 && nbIA > nbJoueur - 1)
+            {
+            	System.out.println("How many IA ? (between 0 and " + nbJoueur + ")");
+                nbIA = sc.nextInt();
+            }
+            	
             server = new ServeurReg(12345,nbJoueur,embedded);
+            
+            for (int i = 1; i <= nbIA; i++)
+            {
+            	server.addIA(new JoueurOrdi("IA" + i));
+            }
+            
         } catch (IOException ex) {
             System.err.println("Error occurs during the initialization of the server");
             System.exit(1);

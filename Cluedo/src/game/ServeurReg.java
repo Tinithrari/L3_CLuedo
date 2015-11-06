@@ -103,6 +103,13 @@ public class ServeurReg{
         }
     }
     
+    public void addIA(JoueurOrdi ordi)
+    {
+    	ordi.setNum_joueur(nb_connection);
+    	clients.add(ordi);
+    	this.setNb_connection(this.getNb_connection() + 1);
+    }
+    
     /**
      * @return la liste des joueurs connectés
      */
