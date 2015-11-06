@@ -100,9 +100,9 @@ public class JoueurOrdi extends Joueur {
                 }
             }
         }
-        if (splitted[0].equals("respond"))
+        if (splitted[0].equals("info") && splitted[1].equals("respond"))
         {
-                String carte = splitted[1];
+                String carte = splitted[3];
             
                 if (croyanceArme.containsKey(carte))
                     removeEntry(croyanceArme, carte);

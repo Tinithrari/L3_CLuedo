@@ -31,6 +31,12 @@ public class JoueurReseauServeur extends Joueur{
      */
     @Override
     public void send(String message) throws IOException{
+    	try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         writer.println(message);
         writer.flush();
