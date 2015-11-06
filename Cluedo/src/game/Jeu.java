@@ -73,6 +73,9 @@ public class Jeu {
         Collections.shuffle(paquet);
     }
     
+    /**
+     * Mélange le tableau de joueurs
+     */
     private void ordreJoueurs(){
     	Collections.shuffle(joueurs);
     }
@@ -138,15 +141,7 @@ public class Jeu {
         paquet.remove(lieu);
         paquet.remove(suspect);
     }
-
-    /**
-     * Permet d'effectuer une suggestion
-     * @param joueur Le joueur ayant effectuer une suggestion
-     * @param lieu le lieu suggérer
-     * @param arme l'arme suggérer
-     * @param meurtrier le suspect
-     */
-     
+    
     /**
      * Bascule l'état du jeu en mode suggestion
      * @param joueur Le joueur ayant fait la suggestion
