@@ -77,21 +77,20 @@ public class JoueurOrdi extends Joueur {
                     // Vérifie si la requête n'est pas identique à l'une des précédentes et si elle contient au moins une des trois cartes
                     for (String requetePrecedente : (Queue<String>)memJoueur)
                     if (! (requetePrecedente.contains(splitted[3]) && requetePrecedente.contains(splitted[4]) && requetePrecedente.contains(splitted[5])) )
-                        if ( requetePrecedente.contains(splitted[3]) || requetePrecedente.contains(splitted[4]) || requetePrecedente.contains(splitted[5]) )
                         {
                             if (requetePrecedente.contains(splitted[3]) && croyanceSuspect.containsKey(splitted[3]) && !un)
                             {
-                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1 / (float) croyanceSuspect.size()));
+                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1f / (float)croyanceSuspect.size()));
                                 un = true;
                             }
                             if (requetePrecedente.contains(splitted[4])  && croyanceArme.containsKey(splitted[4]) && !deux)
                             {
-                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1 / (float) croyanceArme.size()));
+                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1f / (float)croyanceArme.size()));
                                 deux = true;
                             }
                             if (! requetePrecedente.contains(splitted[5]) && croyanceLieu.containsKey(splitted[5]) && !trois)
                             {
-                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1 / (float) croyanceLieu.size()));
+                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1f / (float)croyanceLieu.size()));
                                 trois = true;
                             }
                             if (un && deux && trois)
@@ -102,6 +101,9 @@ public class JoueurOrdi extends Joueur {
         }
         if (splitted[0].equals("info") && splitted[1].equals("respond"))
         {
+        	if (Integer.parseInt(splitted[2]) == this.getNum_joueur())
+        		return;
+        	
                 String carte = splitted[3];
             
                 if (croyanceArme.containsKey(carte))
@@ -109,7 +111,7 @@ public class JoueurOrdi extends Joueur {
                 else if (croyanceLieu.containsKey(carte))
                     removeEntry(croyanceLieu, carte);
                 else
-                    removeEntry(croyanceLieu, carte);
+                    removeEntry(croyanceSuspect, carte);
         }
         if (splitted[0].equals("info") && splitted[1].equals("show") && attentionRequisePourShow)
         {
@@ -152,12 +154,12 @@ public class JoueurOrdi extends Joueur {
         
         if (splitted[0].equals("ask"))
         {
-        	String suspectDemande = splitted[1];
-        	String armeDemande = splitted[2];
-        	String lieuDemande = splitted[3];
+        	Suspect suspectDemande = new Suspect(splitted[1]);
+        	Arme armeDemande = new Arme(splitted[2]);
+        	Lieu lieuDemande = new Lieu(splitted[3]);
         	
         	// On verifie les cartes que l'on a
-        	LinkedList <String> possede = new LinkedList();
+        	LinkedList <Carte> possede = new LinkedList();
         	if (main.contains(suspectDemande))
         		possede.add(suspectDemande);
         	if (main.contains(armeDemande))
@@ -172,7 +174,7 @@ public class JoueurOrdi extends Joueur {
         	else
         	{
         		Collections.shuffle(possede);
-        		buffer = "respond " + possede.getFirst();
+        		buffer = "respond " + possede.getFirst().toString();
         	}
         }
     }
@@ -319,7 +321,7 @@ public class JoueurOrdi extends Joueur {
         if(hashmap.size()==0)
             return;
         
-        pourcentage = 1/hashmap.size();
+        pourcentage = 1f/hashmap.size();
         
         for(String s : hashmap.keySet())
         {
@@ -350,7 +352,7 @@ public class JoueurOrdi extends Joueur {
             return;
         
         difference = hashmap.get(key) - valeur;
-        valeur /= hashmap.size() - 1;
+        difference /= (hashmap.size() - 1f);
         
         hashmap.replace(key,valeur);
         
@@ -359,7 +361,7 @@ public class JoueurOrdi extends Joueur {
             float tampon = hashmap.get(s);
             
             if(!s.equals(key))
-                hashmap.replace(key, tampon + difference);
+                hashmap.replace(s, tampon + difference);
         }
     }
 }
