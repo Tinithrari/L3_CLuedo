@@ -35,9 +35,10 @@ public class CluedoServeur
             {
                 System.out.println("How many players ? (between 3 and 6)");
                 nbJoueur = sc.nextInt();
+                System.out.println(nbIA < 0 && nbIA > nbJoueur - 1);
             }
             
-            while (nbIA < 0 && nbIA > nbJoueur - 1)
+            while (nbIA < 0 || nbIA > nbJoueur - 1)
             {
             	System.out.println("How many IA ? (between 0 and " + nbJoueur + ")");
                 nbIA = sc.nextInt();
