@@ -79,7 +79,7 @@ public final class JoueurReseauClient extends JoueurHumain{
     {
         String[] splitted = requete.split(" ");
         
-        if (splitted[0].equals("start") && splitted.length == 3)
+        if (splitted[0].equals("start"))
         {
             commencer(splitted);
         }
@@ -89,12 +89,12 @@ public final class JoueurReseauClient extends JoueurHumain{
             this.send(commande());
         }
         
-        else if (splitted[0].equals("error") && splitted.length >= 2)
+        else if (splitted[0].equals("error"))
         {
             erreur(splitted);
         }
         
-        else if (splitted[0].equals("move") && splitted.length == 6)
+        else if (splitted[0].equals("move"))
         {
             int numero_joueur = Integer.parseInt(splitted[2]);
             
@@ -106,7 +106,7 @@ public final class JoueurReseauClient extends JoueurHumain{
             System.out.print("\n");
         }
         
-        else if (splitted[0].equals("ask") && splitted.length == 4)
+        else if (splitted[0].equals("ask"))
         {
             String buffer = "respond";
             
