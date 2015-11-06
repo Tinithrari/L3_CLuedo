@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 /**
- * 
+ * Classe permettant de creer un joueur ordi
+ * @author Tinithrari
  */
 public class JoueurOrdi extends Joueur {
 	
@@ -27,7 +28,8 @@ public class JoueurOrdi extends Joueur {
 	private HashMap<Integer, Queue<String>> memoireSuggestion;
 	
     /**
-     * 
+     * permet de creer un joueur ordi
+     * @param nom le nom du joueur ordi
      */
     public JoueurOrdi(String nom) 
     {
@@ -40,8 +42,13 @@ public class JoueurOrdi extends Joueur {
        // Exemple usage HashMap : memoireSuggestion.put(1, new LinkedList<String>());
     }
 
-    @Override
+    /**
+     * permet d'envoyer un message
+     * @param message le nom du message
+     * @throws IOException
+     */
     public void send(String message) throws IOException {
+    	
         String[] splitted = message.split(" ");
         
         if (splitted[0].equals("move"))
@@ -184,6 +191,10 @@ public class JoueurOrdi extends Joueur {
         return tmp;
     }
 
+    /**
+     * permet de preparer l'IA
+     * @param splitted
+     */
     public void commencer(String[] splitted) {
         String[] cartes;
         joueurs = splitted[1].split(",");
