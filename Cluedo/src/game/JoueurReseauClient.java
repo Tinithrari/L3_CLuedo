@@ -14,6 +14,12 @@ public final class JoueurReseauClient extends JoueurHumain{
     
     private Socket socket;
     
+    /**
+     * Permet de créer un joueur réseau
+     * @param nom le nom du joueur
+     * @param socket le socket de communication
+     * @throws IOException
+     */
     public JoueurReseauClient(String nom, Socket socket) throws IOException
     {
         super(nom);
@@ -32,16 +38,18 @@ public final class JoueurReseauClient extends JoueurHumain{
             throw new IOException("Requête erronée de la part du serveur " + socket.getInetAddress().toString());
     }
 
-    @Override
-    public String commande() 
-    {
-        return super.commande(); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Permet de récupérer le socket du joueur
+     * @return le socket du joueur
+     */
     public Socket getSocket() {
         return socket;
     }
     
+    /**
+     * Permet d'envoyer un message aux serveur distant
+     * @param message Le message à envoyer au serveur
+     */
     @Override
     public void send(String message) throws IOException
     {
@@ -50,6 +58,10 @@ public final class JoueurReseauClient extends JoueurHumain{
         writer.flush();
     }
 
+    /**
+     * Permet de recevoir un message du serveur distan
+     * @return le message du serveur
+     */
     @Override
     public String receive() throws IOException
     {
@@ -58,6 +70,11 @@ public final class JoueurReseauClient extends JoueurHumain{
         return message;
     }
     
+    /**
+     * Permet de gérer les requêtes
+     * @param requete la requête à traiter
+     * @throws IOException En cas de problème réseau ou de flux
+     */
     public void gererRequete(String requete) throws IOException
     {
         String[] splitted = requete.split(" ");
@@ -123,6 +140,10 @@ public final class JoueurReseauClient extends JoueurHumain{
         }             
     }
     
+    /**
+     * Permet de lancer la vue du joueur
+     * @throws IOException En cas de problème réseau
+     */
     public void play() throws IOException
     {
         while (true)

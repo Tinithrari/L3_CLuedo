@@ -14,12 +14,21 @@ public class JoueurReseauServeur extends Joueur{
 
     private Socket socket;
     
+    /**
+     * Constructeur de l'interface de communication avec le réseau pour le joueur réseau
+     * @param socket Le socket permettant de communiquer avec le joueur distant
+     * @param nom Le nom du joueur
+     */
     public JoueurReseauServeur(Socket socket, String nom)
     {
         super(nom);
         this.socket = socket;
     }
     
+    /**
+     * Permet d'envoyer un message au joueur distant
+     * @param message Le message a envoyer
+     */
     @Override
     public void send(String message) throws IOException{
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
@@ -27,6 +36,10 @@ public class JoueurReseauServeur extends Joueur{
         writer.flush();
     }
 
+    /**
+     * Permet de recevoir le message du joueur distant
+     * @return Le message du joueur distant
+     */
     @Override
     public String receive() throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
