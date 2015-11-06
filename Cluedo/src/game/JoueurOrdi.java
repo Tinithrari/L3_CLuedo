@@ -179,7 +179,9 @@ public class JoueurOrdi extends Joueur {
 
     @Override
     public String receive() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String tmp = buffer;
+        buffer = null;
+        return tmp;
     }
 
     public void commencer(String[] splitted) {
