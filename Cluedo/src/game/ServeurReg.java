@@ -22,12 +22,19 @@ public class ServeurReg{
     private int max_connection;
     private int nb_connection;
     
+    /**
+     * 
+     * @param port /port du serveur
+     * @param max_connection /nombre maximal de connections 
+     * @param embedded /indique si le serveur est imbriqué ou non
+     * @throws IOException 
+     */
     public ServeurReg(int port, int max_connection, boolean embedded) throws IOException
     {
         this.sSocket = new ServerSocket(port);
         this.clients = new LinkedList<Joueur>();
         this.max_connection = max_connection;
-        if (! embedded)
+        if (!embedded)
             this.nb_connection = 0;
         else
         {
@@ -46,6 +53,10 @@ public class ServeurReg{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Lance l'enregistrement des joueurs au serveurs tant que nombre de joueurs
+     * est inférieure au nombre de connections maximales
+     */
     public void run() 
     {    
         while (nb_connection < max_connection)
@@ -91,23 +102,40 @@ public class ServeurReg{
             }
         }
     }
-
+    
+    /**
+     * @return la liste des joueurs connectés
+     */
     public synchronized LinkedList<Joueur> getClients() {
         return clients;
     }
 
+    /**
+     * @return le nombre de connections maximales
+     */
     public synchronized int getMax_connection() {
         return max_connection;
     }
-
+    
+    /**
+     * modifie le nombre de connections maximales
+     * @param max_connection 
+     */
     public synchronized void setMax_connection(int max_connection) {
         this.max_connection = max_connection;
     }
 
+    /**
+     * @return le nombre de connections
+     */
     public synchronized int getNb_connection() {
         return nb_connection;
     }
-
+    
+    /**
+     * modifie le nombre de connections
+     * @param nb_connection 
+     */
     public synchronized void setNb_connection(int nb_connection) {
         this.nb_connection = nb_connection;
     }
