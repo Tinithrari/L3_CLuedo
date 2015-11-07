@@ -53,7 +53,9 @@ public class CluedoSolo {
             }
         }
         if (partiePerdu(joueurs))
+        {
             System.out.println("Nobody has won the game");
+        }
     }
     
     private boolean partiePerdu(LinkedList<Joueur> joueurs)

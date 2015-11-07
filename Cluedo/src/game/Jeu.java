@@ -334,7 +334,7 @@ public class Jeu {
                 else if (splittedCommand[1].equals("accuse")) 
                 {
                     for (Joueur joueur : joueurs)
-                        joueur.send("move accuse " + joueur.getNum_joueur() + " " +suspect.toString() + " " + arme.getNom() + " " + lieu.getNom());
+                        joueur.send("move accuse " + j.getNum_joueur() + " " +suspect.toString() + " " + arme.getNom() + " " + lieu.getNom());
                     if (!accuser(j, suspect, lieu, arme)) 
                     {
                         j.perdu();
