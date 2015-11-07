@@ -19,9 +19,13 @@ public class JoueurOrdi extends Joueur {
 	
 	private String buffer;
         
-        private static LinkedList<String> armes;
-        private static LinkedList<String> suspects;
-        private static LinkedList<String> lieux;
+        private LinkedList<String> armes;
+        private LinkedList<String> suspects;
+        private LinkedList<String> lieux;
+        
+        private String oldSuspect;
+        private String oldArme;
+        private String oldLieu;
         
         private boolean attentionRequisePourShow;
 	
@@ -56,11 +60,11 @@ public class JoueurOrdi extends Joueur {
         {
         	commencer(splitted);
         }
-        if (splitted[0].equals("move"))
+        if (splitted[0].equals("move") && Integer.parseInt(splitted[2]) != this.getNum_joueur())
         {
             String requete = splitted[3] + " " + splitted[4] + " " + splitted[5];
             
-            Queue memJoueur = memoireSuggestion.get( Integer.parseInt(splitted[2]) );
+            Queue<String> memJoueur = memoireSuggestion.get( Integer.parseInt(splitted[2]) );
             
             if (! memJoueur.isEmpty())
             {
@@ -75,22 +79,25 @@ public class JoueurOrdi extends Joueur {
                     boolean un = false, deux = false, trois = false;
                     // Second cas : Carte inconnu
                     // Vérifie si la requête n'est pas identique à l'une des précédentes et si elle contient au moins une des trois cartes
-                    for (String requetePrecedente : (Queue<String>)memJoueur)
+                    for (String requetePrecedente : memJoueur)
                     if (! (requetePrecedente.contains(splitted[3]) && requetePrecedente.contains(splitted[4]) && requetePrecedente.contains(splitted[5])) )
                         {
                             if (requetePrecedente.contains(splitted[3]) && croyanceSuspect.containsKey(splitted[3]) && !un)
                             {
-                                changeValue(croyanceSuspect, splitted[3], croyanceSuspect.get(splitted[3]) + (1f / (float)croyanceSuspect.size()));
+                            	float value = croyanceSuspect.get(splitted[3]) + (1f / (float)croyanceSuspect.size());
+                                changeValue(croyanceSuspect, splitted[3], (value > 1f ? 1f : value) );
                                 un = true;
                             }
                             if (requetePrecedente.contains(splitted[4])  && croyanceArme.containsKey(splitted[4]) && !deux)
                             {
-                                changeValue(croyanceArme, splitted[4], croyanceArme.get(splitted[4]) + (1f / (float)croyanceArme.size()));
+                            	float value = croyanceArme.get(splitted[4]) + (1f / (float)croyanceArme.size());
+                                changeValue(croyanceArme, splitted[4], (value > 1f ? 1f : value) );
                                 deux = true;
                             }
                             if (! requetePrecedente.contains(splitted[5]) && croyanceLieu.containsKey(splitted[5]) && !trois)
                             {
-                                changeValue(croyanceLieu, splitted[5], croyanceLieu.get(splitted[5]) + (1f / (float)croyanceLieu.size()));
+                            	float value = croyanceLieu.get(splitted[5]) + (1f / (float)croyanceLieu.size());
+                                changeValue(croyanceLieu, splitted[5], (value > 1f ? 1f : value) );
                                 trois = true;
                             }
                             if (un && deux && trois)
@@ -98,6 +105,7 @@ public class JoueurOrdi extends Joueur {
                         }
                 }
             }
+            memJoueur.offer(requete);
         }
         if (splitted[0].equals("info") && splitted[1].equals("respond"))
         {
@@ -112,6 +120,22 @@ public class JoueurOrdi extends Joueur {
                     removeEntry(croyanceLieu, carte);
                 else
                     removeEntry(croyanceSuspect, carte);
+                
+                if (! oldArme.equals(splitted[3]) )
+                {
+                	float value = croyanceArme.get(oldArme) + (1f / (float)croyanceArme.size());
+                	changeValue(croyanceArme, oldArme, (value > 1f ? 1f : value) );
+                }
+                if (! oldLieu.equals(splitted[3]) )
+                {
+                	float value = croyanceLieu.get(oldLieu) + (1f / (float)croyanceLieu.size());
+                	changeValue(croyanceLieu, oldLieu, (value > 1f ? 1f : value) );
+                }
+                if (! oldSuspect.equals(splitted[3]) )
+                {
+                	float value = croyanceSuspect.get(oldSuspect) + (1f / (float)croyanceSuspect.size());
+                	changeValue(croyanceSuspect, oldSuspect, (value > 1f ? 1f : value) );
+                }
         }
         if (splitted[0].equals("info") && splitted[1].equals("show") && attentionRequisePourShow)
         {
@@ -141,7 +165,7 @@ public class JoueurOrdi extends Joueur {
         	String action = "move ";
         	
         	// Si les croyances sont sup a 75%, accuse, sinon suggestion
-        	if(maxArme >= 0.75 && maxSuspect >= 0.75 && maxLieu >= 0.75)
+        	if(maxArme >= 0.80 && maxSuspect >= 0.80 && maxLieu >= 0.80)
         		action += "accuse ";
         	else
         		action += "suggest ";
@@ -150,6 +174,10 @@ public class JoueurOrdi extends Joueur {
         	
         	// On place l'action dans le buffer
         	buffer = action;
+        	
+        	oldArme = arme;
+        	oldLieu = lieu;
+        	oldSuspect = suspect;
         }
         
         if (splitted[0].equals("ask"))
