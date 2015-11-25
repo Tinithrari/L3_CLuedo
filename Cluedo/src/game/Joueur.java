@@ -90,7 +90,7 @@ public abstract class Joueur {
 
     /**
      * Demande une commande au joueur
-     * @return la commande du joueur
+     * @param message Le message à envoyer
      */
     public abstract void send(String message) throws IOException;
     public abstract String receive() throws IOException;
