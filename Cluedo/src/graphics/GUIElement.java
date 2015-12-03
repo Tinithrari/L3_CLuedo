@@ -6,6 +6,7 @@
 package graphics;
 
 import java.util.ArrayList;
+import org.jsfml.graphics.RenderWindow;
 
 /**
  *
@@ -19,5 +20,11 @@ public abstract class GUIElement {
         listeners = new ArrayList();
     }
     
+    public abstract void processEvent(RenderWindow _w);
     protected abstract void notifyListener();
+    
+    public void addActionListener(GUIEventListener listener)
+    {
+        listeners.add(listener);
+    }
 }

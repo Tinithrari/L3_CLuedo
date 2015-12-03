@@ -25,29 +25,34 @@ public class TestInterf{
 		Font bloodFeast = new Font();
 		Font bloodGut = new Font();
 		try{
-		maTexture.loadFromFile(Paths.get("Cluedo/src/Cluedo.jpg"));
-		bloodFeast.loadFromFile(Paths.get("Cluedo/src/Bloodfeast.ttf"));
-		bloodGut.loadFromFile(Paths.get("Cluedo/src/Bloodgut.ttf"));
+		maTexture.loadFromStream(maTexture.getClass().getClassLoader().getResourceAsStream("Cluedo.jpg"));
+		bloodFeast.loadFromStream(bloodFeast.getClass().getClassLoader().getResourceAsStream("Bloodfeast.ttf"));
+		bloodGut.loadFromStream(bloodGut.getClass().getClassLoader().getResourceAsStream("Bloodgut.ttf"));
 		monSprite.setTexture(maTexture);
 		}catch (IOException e){
 			e.printStackTrace();
+                        System.exit(1);
 		}
-		fen.create(new VideoMode(800, 600), "Cluedo");
+		fen.create(new VideoMode(1024, 768), "Cluedo", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
 		Text titre = new Text("CLUEDO", bloodFeast, 70);
 		titre.setPosition(260, 20);
 		titre.setColor(Color.BLACK);
 		titre.setStyle(Text.BOLD | Text.UNDERLINED);
-		
-		while(fen.isOpen()){
-			for (Event event : fen.pollEvents()){
-				if(event.type == Event.Type.CLOSED)
-					fen.close();
-				
-				fen.draw(monSprite);
-				fen.draw(titre);
-				fen.display();
-				fen.setKeyRepeatEnabled(false);
-			}//for
+		while(fen.isOpen())
+                {
+                    for (Event event : fen.pollEvents())
+                    {
+			if(event.type == Event.Type.CLOSED)
+                        {
+                            fen.close();
+                            System.exit(0);
+                        }
+                    }//for
+                    fen.clear();
+                    fen.draw(monSprite);
+                    fen.draw(titre);
+                    fen.display();
+                    fen.setKeyRepeatEnabled(false);
 		}//while
 		System.out.println(lettre);
 	}//main
