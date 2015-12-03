@@ -21,6 +21,7 @@ public abstract class GUIElement {
     }
     
     public abstract void processEvent(RenderWindow _w);
+    public abstract void draw (RenderWindow _w);
     protected abstract void notifyListener();
     
     public void addActionListener(GUIEventListener listener)
