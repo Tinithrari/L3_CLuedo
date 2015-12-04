@@ -22,9 +22,7 @@ import org.jsfml.window.event.Event;
  */
 public class ColoredButton extends GUIElement{
 
-    private enum State {NONE, PRESSED};
-    
-    private State state;
+    private GUIEvent state;
     private Text text;
     private RectangleShape form;
     private Vector2f pos;
@@ -63,20 +61,15 @@ public class ColoredButton extends GUIElement{
     public void processEvent(RenderWindow _w) {
         Vector2f mousePos = new Vector2f(Mouse.getPosition(_w));
         
-        if (Mouse.isButtonPressed(Mouse.Button.LEFT) && state == State.NONE)
+        if (Mouse.isButtonPressed(Mouse.Button.LEFT) && state == GUIEvent.RELEASED)
             if (form.getLocalBounds().contains(mousePos.x, mousePos.y))
                 notifyListener(GUIEvent.PRESSED);
             
-        else if (! Mouse.isButtonPressed(Mouse.Button.LEFT) && state == State.PRESSED) 
+        else if (! Mouse.isButtonPressed(Mouse.Button.LEFT) && state == GUIEvent.PRESSED) 
             if (form.getLocalBounds().contains(mousePos.x, mousePos.y))
                 notifyListener(GUIEvent.CLICKED);
             else
                 notifyListener(GUIEvent.RELEASED);
-    }
-
-    @Override
-    protected void notifyListener(GUIEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
