@@ -7,6 +7,7 @@ package graphics;
 
 import java.util.ArrayList;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.event.Event;
 
 /**
  *
@@ -15,6 +16,8 @@ import org.jsfml.graphics.RenderWindow;
 public abstract class GUIElement {
     protected ArrayList<GUIEventListener> listeners;
     
+    public enum GUIEvent {PRESSED, CLICKED, RELEASED};
+    
     public GUIElement()
     {
         listeners = new ArrayList();
@@ -22,7 +25,12 @@ public abstract class GUIElement {
     
     public abstract void processEvent(RenderWindow _w);
     public abstract void draw (RenderWindow _w);
-    protected abstract void notifyListener();
+    
+    protected void notifyListener(GUIEvent e)
+    {
+        for (GUIEventListener l : listeners)
+            l.actionPerformed(e, this);
+    }
     
     public void addActionListener(GUIEventListener listener)
     {

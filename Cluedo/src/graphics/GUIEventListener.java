@@ -5,12 +5,12 @@
  */
 package graphics;
 
-import org.jsfml.window.event.Event;
+import graphics.GUIElement.GUIEvent;
 
 /**
  *
  * @author Tinithrari
  */
 public interface GUIEventListener {
-    public void actionPerformed(Event e, Object source);
+    public void actionPerformed(GUIEvent e, Object source);
 }

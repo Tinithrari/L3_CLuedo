@@ -5,6 +5,7 @@
  */
 package graphics;
 
+import graphics.GUIElement.GUIEvent;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
@@ -30,7 +31,7 @@ public class GameScene extends Scene implements GUIEventListener{
     }
 
     @Override
-    public void actionPerformed(Event e, Object source) {
+    public void actionPerformed(GUIEvent e, Object source) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
