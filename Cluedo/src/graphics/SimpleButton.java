@@ -59,7 +59,7 @@ public class SimpleButton extends GUIElement{
         
         size = text.getString().length() * text.getCharacterSize();
         
-        form = new RectangleShape(new Vector2f(size, size - 50));
+        form = new RectangleShape(new Vector2f(size, text.getCharacterSize() + 50));
         form.setPosition(pos);
         form.setFillColor(color);
     }
