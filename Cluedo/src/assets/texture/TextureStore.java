@@ -17,7 +17,7 @@ public class TextureStore {
     private static HashMap<String, Texture> textureStore;
     
     public static final String BLOODYWALL = "bloodywall.jpg";
-    public static final String CLUEDO = "Cluedo.jpg";
+    public static final String MAINMENU = "MainMenu.png";
     
     public static Texture getTexture(String key) throws IOException
     {

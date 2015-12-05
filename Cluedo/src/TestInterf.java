@@ -29,7 +29,7 @@ public class TestInterf{
 		Sprite monSprite = new Sprite();
                 Text titre = null;
 		try{
-		monSprite.setTexture(TextureStore.getTexture(TextureStore.CLUEDO));
+		monSprite.setTexture(TextureStore.getTexture(TextureStore.MAINMENU));
 		}catch (IOException e){
 			e.printStackTrace();
                         System.exit(1);
@@ -37,7 +37,7 @@ public class TestInterf{
 		fen.create(new VideoMode(1024, 768), "Cluedo", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
                 try {
                     titre = new Text("CLUEDO", FontStore.getFont(FontStore.BLOODFEAST), 70);
-                    titre.setPosition(260, 20);
+                    titre.setPosition(350, 20);
                     titre.setColor(Color.BLACK);
                     titre.setStyle(Text.BOLD | Text.UNDERLINED);
                 } catch (IOException ex) {
