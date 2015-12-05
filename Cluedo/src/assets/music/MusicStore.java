@@ -20,7 +20,7 @@ private static HashMap<String, Music> musicStore;
 			m = new Music();
 			
 			try {
-				m.openFromStream(m.getClass().getResourceAsStream("assets/music/" + key));
+				m.openFromStream(m.getClass().getClassLoader().getResourceAsStream("assets/music/" + key));
 				musicStore.put(key, m);
 			} catch (IOException e) {
 				e.printStackTrace();

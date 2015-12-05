@@ -21,7 +21,7 @@ public class SoundStore {
 		{
 			buffer = new SoundBuffer();
 			try {
-				buffer.loadFromStream(buffer.getClass().getResourceAsStream("assets/sound/" + key));
+				buffer.loadFromStream(buffer.getClass().getClassLoader().getResourceAsStream("assets/sound/" + key));
 				soundStore.put(key, buffer);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
