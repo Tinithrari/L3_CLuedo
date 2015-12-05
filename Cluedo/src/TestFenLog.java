@@ -1,7 +1,7 @@
 
 import assets.font.FontStore;
 import assets.texture.TextureStore;
-import graphics.ColoredButton;
+import graphics.SimpleButton;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.jsfml.graphics.Color;
@@ -31,7 +31,7 @@ public class TestFenLog {
 		RenderWindow fen = new RenderWindow();
 		Sprite monSprite = new Sprite();
                 RectangleShape form = new RectangleShape(new Vector2f(400,200));
-                ColoredButton annuler = new ColoredButton("Annuler", "bloodgut.ttf", new Vector2f(750,300), 20);
+                SimpleButton annuler = new SimpleButton("Annuler", "bloodgut.ttf", new Vector2f(750,300), 20);
                 
                 form.setPosition(new Vector2f(250,175));
 		try{

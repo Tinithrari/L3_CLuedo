@@ -7,7 +7,10 @@ package graphics;
 
 import graphics.GUIElement.GUIEvent;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
+
+import assets.font.FontStore;
 
 /**
  *
@@ -15,24 +18,32 @@ import org.jsfml.window.event.Event;
  */
 public class GameScene extends Scene implements GUIEventListener{
 
+	private SimpleButton button;
+	
+	public GameScene()
+	{
+		button = new SimpleButton("Test", FontStore.BLOODFEAST, new Vector2f(200f,300f), 35);
+		button.addActionListener(this);
+	}
+	
     @Override
     public void handleEvent(RenderWindow _w) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        button.processEvent(_w);
     }
 
     @Override
     public void update(long delta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void render(RenderWindow _w) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        button.draw(_w);
     }
 
     @Override
     public void actionPerformed(GUIEvent e, Object source) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (source == button && e == GUIEvent.CLICKED)
+        	System.out.println("Coucou");
     }
     
 }

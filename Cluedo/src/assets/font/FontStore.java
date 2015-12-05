@@ -14,6 +14,10 @@ import org.jsfml.graphics.Font;
  * @author Tinithrari
  */
 public class FontStore {
+	
+	public static final String BLOODFEAST = "Bloodfeast.ttf";
+	public static final String BLOODGUT = "bloodgut.ttf";
+	
     private static HashMap<String, Font> fontStore;
     
     public static Font getFont(String key) throws IOException
@@ -26,7 +30,7 @@ public class FontStore {
         if ( (font = fontStore.get(key)) == null )
         {
             font = new Font();
-            font.loadFromStream(font.getClass().getClassLoader().getResourceAsStream(key));
+            font.loadFromStream(font.getClass().getClassLoader().getResourceAsStream("assets/font/" + key));
             fontStore.put(key, font);
         }
         
