@@ -20,8 +20,6 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 public class TestInterf{
-	private static final String CLUEDO = "Cluedo.jpg";
-	private static final String BLOODFEAST = "Bloddfeast.ttf";
 
 	public static void main(String[] args)
 		{
@@ -31,14 +29,14 @@ public class TestInterf{
 		Sprite monSprite = new Sprite();
                 Text titre = null;
 		try{
-		monSprite.setTexture(TextureStore.getTexture(CLUEDO));
+		monSprite.setTexture(TextureStore.getTexture(TextureStore.CLUEDO));
 		}catch (IOException e){
 			e.printStackTrace();
                         System.exit(1);
 		}
 		fen.create(new VideoMode(1024, 768), "Cluedo", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
                 try {
-                    titre = new Text("CLUEDO", FontStore.getFont(BLOODFEAST), 70);
+                    titre = new Text("CLUEDO", FontStore.getFont(FontStore.BLOODFEAST), 70);
                     titre.setPosition(260, 20);
                     titre.setColor(Color.BLACK);
                     titre.setStyle(Text.BOLD | Text.UNDERLINED);

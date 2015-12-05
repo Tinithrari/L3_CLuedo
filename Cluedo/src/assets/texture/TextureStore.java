@@ -16,6 +16,9 @@ import org.jsfml.graphics.Texture;
 public class TextureStore {
     private static HashMap<String, Texture> textureStore;
     
+    public static final String BLOODYWALL = "bloodywall.jpg";
+    public static final String CLUEDO = "Cluedo.jpg";
+    
     public static Texture getTexture(String key) throws IOException
     {
         Texture tex;
@@ -26,7 +29,7 @@ public class TextureStore {
         if ( (tex = textureStore.get(key)) == null )
         {
             tex = new Texture();
-            tex.loadFromStream(tex.getClass().getClassLoader().getResourceAsStream(key));
+            tex.loadFromStream(tex.getClass().getClassLoader().getResourceAsStream("assets/texture/" + key));
             textureStore.put(key, tex);
         }
         
