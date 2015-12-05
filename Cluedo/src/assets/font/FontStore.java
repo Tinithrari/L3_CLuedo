@@ -25,7 +25,7 @@ public class FontStore {
         Font font;
         
         if (fontStore == null)
-            fontStore = new HashMap();
+            fontStore = new HashMap<String, Font>();
         
         if ( (font = fontStore.get(key)) == null )
         {
