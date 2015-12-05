@@ -1,10 +1,6 @@
 
-import assets.font.FontStore;
-import assets.texture.TextureStore;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
@@ -24,24 +20,24 @@ public class TestInterf{
 		{
 		String lettre = "";
 		RenderWindow fen = new RenderWindow();
+		Texture maTexture = new Texture();
 		Sprite monSprite = new Sprite();
-		Text titre = new Text();
+		Font bloodFeast = new Font();
+		Font bloodGut = new Font();
 		try{
-		monSprite.setTexture(TextureStore.getTexture("Cluedo.jpg"));
+		maTexture.loadFromStream(maTexture.getClass().getClassLoader().getResourceAsStream("Cluedo.jpg"));
+		bloodFeast.loadFromStream(bloodFeast.getClass().getClassLoader().getResourceAsStream("Bloodfeast.ttf"));
+		bloodGut.loadFromStream(bloodGut.getClass().getClassLoader().getResourceAsStream("Bloodgut.ttf"));
+		monSprite.setTexture(maTexture);
 		}catch (IOException e){
 			e.printStackTrace();
                         System.exit(1);
 		}
 		fen.create(new VideoMode(1024, 768), "Cluedo", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
-                try {
-                    titre = new Text("CLUEDO", FontStore.getFont("Bloodfeast.ttf"), 70);
-                    titre.setPosition(260, 20);
-                    titre.setColor(Color.BLACK);
-                    titre.setStyle(Text.BOLD | Text.UNDERLINED);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
-                }
+		Text titre = new Text("CLUEDO", bloodFeast, 70);
+		titre.setPosition(260, 20);
+		titre.setColor(Color.BLACK);
+		titre.setStyle(Text.BOLD | Text.UNDERLINED);
 		while(fen.isOpen())
                 {
                     for (Event event : fen.pollEvents())

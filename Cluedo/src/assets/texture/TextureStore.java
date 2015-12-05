@@ -26,7 +26,7 @@ public class TextureStore {
         if ( (tex = textureStore.get(key)) == null )
         {
             tex = new Texture();
-            tex.loadFromStream(tex.getClass().getClassLoader().getResourceAsStream(key));
+            tex.loadFromStream(tex.getClass().getResourceAsStream("assets/texture/" + key));
             textureStore.put(key, tex);
         }
         
