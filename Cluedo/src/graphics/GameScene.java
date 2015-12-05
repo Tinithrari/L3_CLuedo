@@ -21,7 +21,7 @@ public class GameScene extends Scene implements GUIEventListener{
     }
 
     @Override
-    public void update(float delta) {
+    public void update(long delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

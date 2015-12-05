@@ -14,6 +14,6 @@ import org.jsfml.graphics.RenderWindow;
 public abstract class Scene{
     
     public abstract void handleEvent(RenderWindow _w);
-    public abstract void update(float delta);
+    public abstract void update(long delta);
     public abstract void render(RenderWindow _w);
 }
