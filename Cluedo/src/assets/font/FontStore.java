@@ -17,6 +17,7 @@ public class FontStore {
 	
 	public static final String BLOODFEAST = "Bloodfeast.ttf";
 	public static final String BLOODGUT = "bloodgut.ttf";
+	public static final String ERASER = "Eraser.ttf";
 	
     private static HashMap<String, Font> fontStore;
     

@@ -18,6 +18,7 @@ public class TextureStore {
     
     public static final String BLOODYWALL = "bloodywall.jpg";
     public static final String MAINMENU = "MainMenu.png";
+    public static final String WHITEBOARD = "WhiteBoard.png";
     
     public static Texture getTexture(String key) throws IOException
     {

@@ -15,7 +15,7 @@ public class CluedoGraphique {
     
     public CluedoGraphique(Scene scene)
     {
-        _window = new RenderWindow(new VideoMode(800,600), "Cluedo - Faculté Jean Perrin", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
+        _window = new RenderWindow(new VideoMode(1024,768), "Cluedo - Faculté Jean Perrin", RenderWindow.TITLEBAR | RenderWindow.CLOSE);
         this._currentScene = scene;
     }
     
