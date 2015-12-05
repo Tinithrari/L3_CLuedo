@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import org.jsfml.graphics.Font;
 
+
 /**
  *
  * @author Tinithrari
  */
+
 public class FontStore {
     private static HashMap<String, Font> fontStore;
     
@@ -26,7 +28,7 @@ public class FontStore {
         if ( (font = fontStore.get(key)) == null )
         {
             font = new Font();
-            font.loadFromStream(font.getClass().getResourceAsStream("assets/font/" + key));
+            font.loadFromStream(font.getClass().getClassLoader().getResourceAsStream(key));
             fontStore.put(key, font);
         }
         
