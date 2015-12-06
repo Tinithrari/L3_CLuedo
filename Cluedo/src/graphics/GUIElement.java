@@ -16,7 +16,7 @@ import org.jsfml.window.event.Event;
 public abstract class GUIElement {
     protected ArrayList<GUIEventListener> listeners;
     
-    public enum GUIEvent {PRESSED, CLICKED, RELEASED, HOVER};
+    public enum GUIEvent {PRESSED, CLICKED, RELEASED, HOVER, DISABLED};
     
     public GUIElement()
     {

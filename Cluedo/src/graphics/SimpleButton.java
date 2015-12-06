@@ -25,7 +25,8 @@ import org.jsfml.window.event.Event;
 public class SimpleButton extends GUIElement{
 
     private GUIEvent state;
-    private Text text;
+
+	private Text text;
     private RectangleShape form;
     private Vector2f pos;
     private Color color;
@@ -67,33 +68,36 @@ public class SimpleButton extends GUIElement{
     @Override
     public void processEvent(RenderWindow _w) {
         Vector2f mousePos = new Vector2f(Mouse.getPosition(_w));
-        if (form.getGlobalBounds().contains(mousePos.x, mousePos.y))
+        if (state != GUIEvent.DISABLED)
         {
-	        if (Mouse.isButtonPressed(Mouse.Button.LEFT) && state != GUIEvent.PRESSED)
+	        if (form.getGlobalBounds().contains(mousePos.x, mousePos.y))
 	        {
-	            notifyListener(GUIEvent.PRESSED);
-	            state = GUIEvent.PRESSED;
-	            form.setFillColor(new Color(color.r - 30, color.g - 30, color.b - 30));
+		        if (Mouse.isButtonPressed(Mouse.Button.LEFT) && state != GUIEvent.PRESSED)
+		        {
+		            notifyListener(GUIEvent.PRESSED);
+		            state = GUIEvent.PRESSED;
+		            form.setFillColor(new Color(color.r - 30, color.g - 30, color.b - 30));
+		        }
+		            
+		        else if (! Mouse.isButtonPressed(Mouse.Button.LEFT) && state == GUIEvent.PRESSED) 
+		        {
+		            notifyListener(GUIEvent.CLICKED);
+		            state = GUIEvent.CLICKED;
+		            form.setFillColor(color);
+		        }
+		        else if (state != GUIEvent.PRESSED)
+		        {
+		        	notifyListener(GUIEvent.HOVER);
+		        	state = GUIEvent.HOVER;
+		        	form.setFillColor(new Color(color.r + 30, color.g + 30, color.b + 30));
+		        }
 	        }
-	            
-	        else if (! Mouse.isButtonPressed(Mouse.Button.LEFT) && state == GUIEvent.PRESSED) 
+	        else
 	        {
-	            notifyListener(GUIEvent.CLICKED);
-	            state = GUIEvent.CLICKED;
-	            form.setFillColor(color);
+	        	state = GUIEvent.RELEASED;
+	        	notifyListener(GUIEvent.RELEASED);
+	        	form.setFillColor(color);
 	        }
-	        else if (state != GUIEvent.PRESSED)
-	        {
-	        	notifyListener(GUIEvent.HOVER);
-	        	state = GUIEvent.HOVER;
-	        	form.setFillColor(new Color(color.r + 30, color.g + 30, color.b + 30));
-	        }
-        }
-        else
-        {
-        	state = GUIEvent.RELEASED;
-        	notifyListener(GUIEvent.RELEASED);
-        	form.setFillColor(color);
         }
     }
 
@@ -102,5 +106,9 @@ public class SimpleButton extends GUIElement{
         _w.draw(form);
         _w.draw(text);
     }
+
+	public void setState(GUIEvent state) {
+		this.state = state;
+	}
     
 }

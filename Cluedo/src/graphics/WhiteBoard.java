@@ -54,22 +54,23 @@ public class WhiteBoard extends GUIElement implements GUIEventListener{
 	@Override
 	public void processEvent(RenderWindow _w) {
 		// TODO Auto-generated method stub
-		if (begIndex == 0)
-		{
-			
-		}
-		else if (begIndex == message.size())
-		{
-			
-		}
+		
+		previous.setState(begIndex == 0 ? GUIEvent.DISABLED : GUIEvent.RELEASED);
+		next.setState(begIndex == 0 ? GUIEvent.DISABLED : GUIEvent.RELEASED);
 	}
 
 
 	@Override
 	public void draw(RenderWindow _w) {
 		_w.draw(bg);
+	}
+	
+	public void addMessage(String mes)
+	{
+		if (mes == null)
+			return;
 		
-		
+		message.add(new Text(mes, ft));
 	}
 
 	@Override
