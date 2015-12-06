@@ -1,11 +1,14 @@
 package graphics;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.jsfml.graphics.ConstView;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Text;
 import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
 
@@ -16,21 +19,32 @@ public class WhiteBoard extends GUIElement implements GUIEventListener{
 	
 	private static final int BG_WIDTH = 141;
 	private static final int BG_HEIGHT = 768;
-	private static final int VERTICAL_OFFSET = 30;
+	private final int MAX_MESSAGE = 10;
 	
 	private Sprite bg;
 	private Font ft;
-	private Vector2f pos;
-	private View view;
+	
+	private SimpleButton previous;
+	private SimpleButton next;
+	
+	private ArrayList<Text> message;
+	private Vector2f position;
+	
+	private int begIndex;
 	
 	public WhiteBoard(Vector2f pos)
 	{
 		try {
-			bg = new Sprite(TextureStore.getTexture(TextureStore.WHITEBOARD));
+			bg = new Sprite();
+			bg.setTexture(TextureStore.getTexture(TextureStore.WHITEBOARD));
 			ft = FontStore.getFont(FontStore.ERASER);
-			this.pos = pos;
 			
-			view = new View(new FloatRect(pos.x, pos.y, pos.x + BG_WIDTH, pos.y + BG_HEIGHT - VERTICAL_OFFSET));
+			message = new ArrayList<Text>();
+			bg.setPosition(pos);
+			begIndex = 0;
+			
+			previous = new SimpleButton("↑", FontStore.BLOODGUT, new Vector2f(105, 0), 35);
+			next = new SimpleButton("↓", FontStore.BLOODGUT, new Vector2f(105,675), 35);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,17 +54,37 @@ public class WhiteBoard extends GUIElement implements GUIEventListener{
 	@Override
 	public void processEvent(RenderWindow _w) {
 		// TODO Auto-generated method stub
-		
+		if (begIndex == 0)
+		{
+			
+		}
+		else if (begIndex == message.size())
+		{
+			
+		}
 	}
+
+
 	@Override
 	public void draw(RenderWindow _w) {
-		// TODO Auto-generated method stub
+		_w.draw(bg);
+		
 		
 	}
+
 	@Override
 	public void actionPerformed(GUIEvent e, Object source) {
-		// TODO Auto-generated method stub
-		
+		if (e == GUIEvent.CLICKED && source == previous)
+		{
+			
+			for (Text t : message)
+				t.setPosition(t.getPosition().x, t.getPosition().y - 35);
+			begIndex--;
+		}
+		else if (e == GUIEvent.CLICKED && source == next)
+		{
+			
+		}
 	}
 	
 }

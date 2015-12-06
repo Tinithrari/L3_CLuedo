@@ -22,6 +22,7 @@ import assets.sound.SoundStore;
 public class GameScene extends Scene implements GUIEventListener{
 
 	private SimpleButton button;
+	private WhiteBoard wB;
 	private Sound player;
 	
 	public GameScene()
@@ -29,6 +30,7 @@ public class GameScene extends Scene implements GUIEventListener{
 		button = new SimpleButton("Test", FontStore.BLOODFEAST, new Vector2f(200f,300f), 35);
 		button.addActionListener(this);
 		player = new Sound();
+		wB = new WhiteBoard();
 	}
 	
     @Override
@@ -43,6 +45,7 @@ public class GameScene extends Scene implements GUIEventListener{
     @Override
     public void render(RenderWindow _w) {
         button.draw(_w);
+        wB.draw(_w);
     }
 
     @Override
