@@ -30,12 +30,21 @@ public class GameScene extends Scene implements GUIEventListener{
 		button = new SimpleButton("Test", FontStore.BLOODFEAST, new Vector2f(200f,300f), 35);
 		button.addActionListener(this);
 		player = new Sound();
-		wB = new WhiteBoard();
+		wB = new WhiteBoard(new Vector2f(1024-141, 0));
+		
+		wB.addMessage("Test");
+		wB.addMessage("Test");
+		wB.addMessage("Test");
+		wB.addMessage("Test");
+		wB.addMessage("Test");
+		wB.addMessage("Test");
+		wB.addMessage("Test");
 	}
 	
     @Override
     public void handleEvent(RenderWindow _w) {
         button.processEvent(_w);
+        wB.processEvent(_w);
     }
 
     @Override

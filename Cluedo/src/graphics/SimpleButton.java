@@ -56,11 +56,11 @@ public class SimpleButton extends GUIElement{
         
         this.pos = pos;
         text.setCharacterSize(fontSize);
-        text.setPosition(pos.x + 25, pos.y + 25);
-        
         size = text.getString().length() * text.getCharacterSize();
+        text.setPosition(pos.x + (size/6), pos.y);
         
-        form = new RectangleShape(new Vector2f(size, text.getCharacterSize() + 50));
+        form = new RectangleShape(new Vector2f(pos.x,pos.y));
+        form.setSize(new Vector2f(size * (6/4), text.getCharacterSize() + 15) );
         form.setPosition(pos);
         form.setFillColor(color);
     }
