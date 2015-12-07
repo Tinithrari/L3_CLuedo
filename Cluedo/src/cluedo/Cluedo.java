@@ -6,7 +6,10 @@
 package cluedo;
 
 import java.util.Scanner;
-
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.VideoMode;
+import org.jsfml.window.event.Event;
+import graphics.*;
 /**
  *
  * @author Tinithrari
@@ -21,7 +24,7 @@ public class Cluedo {
             int nbJoueur = 0;
 
             while (nbJoueur < 3 || nbJoueur > 6)
-            {
+            {   
                 System.out.println("How many players ? (between 3 and 6)");
                 nbJoueur = sc.nextInt();
             }

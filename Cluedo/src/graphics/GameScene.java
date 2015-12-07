@@ -32,13 +32,13 @@ public class GameScene extends Scene implements GUIEventListener{
 		player = new Sound();
 		wB = new WhiteBoard(new Vector2f(1024-141, 0));
 		
-		wB.addMessage("Test");
-		wB.addMessage("Test");
-		wB.addMessage("Test");
-		wB.addMessage("Test");
-		wB.addMessage("Test");
-		wB.addMessage("Test");
-		wB.addMessage("Test");
+		wB.addMessage("Test1");
+		wB.addMessage("Test2");
+		wB.addMessage("Test3");
+		wB.addMessage("Test4");
+		wB.addMessage("Test5");
+		wB.addMessage("Test6");
+		wB.addMessage("Test7");
 	}
 	
     @Override
